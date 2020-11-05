@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/1793812fc1.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style/css/bootstrap.css">
+    <link rel="stylesheet" href="style/css/style.css">
+    <title>WorkPortal | Начало</title>
+</head>
+<body>
+<header class="sticky-top">
+    <div class=" bg-dark d-flex justify-content-between">
+        <div class="navbar lg-ml-5">
+            <a class="navbar-brand" href="/">
+                <img class="logo" src="images/logo-chocolate-wheat.webp" alt="logo-work-portal">
+            </a>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon">
+                 <i class="fas fa-bars text-chocolate fa-2x"></i>
+              </span>
+            </button>
+
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Начало</a>
+                    </li>
+                    <!--    Allow if user is loggedIN-->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Отпуск</a>
+                    </li>
+                    <!--    Allow if user is logged and have role Production or Service-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Знание</a>
+                    </li>
+                    <!--    Allow for all-->
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap" href="#">Указания и Правила</a>
+                    </li>
+                    <!--    Allow if user is logged and have role Production -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Списък принтери</a>
+                    </li>
+
+                </ul>
+                <!--                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>-->
+            </div>
+        </nav>
+        <div class="pull-right">
+            <ul class="nav pull-right">
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, User <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
+                        <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/auth/logout"><i class="icon-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+<!--        <div class="float-right">-->
+<!--            <ul class="navbar-nav mr-auto">-->
+<!--                <li><a class="text-chocolate" href="#">Добре дошъл, Потребителю</a></li>-->
+<!--                <li><a class="text-chocolate" href="#">Изход</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+    </div>
+</header>
+<main>
+    <p>sss 1</p>
+    <p>sss 1</p>
+    <p>sss 1</p>
+    <p>sss 1</p>
+    <p>sss 1</p>
+    <p>sss 1</p>
+</main>
+<footer>
+    <div class="container-fluid">
+        <div class="row bg-secondary">
+            <div class="container text-center">
+                <ul class="list-unstyled list-inline text-center">
+                    <li class="list-inline-item mt-3">
+                        <a href="https://github.com/plezzz/WorkPortal" target="_blank">
+                            <i class="fab fa-github fa-3x text-chocolate"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row bg-dark">
+            <div class="container text-center">
+                <p class="text-wheat mt-2">Created by Nikolay Kovachev</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer -->
+<script src="js/jquery-3.5.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

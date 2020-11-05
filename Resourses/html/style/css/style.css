@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "Segoe Print";
+    src: url(../fonts/segoePrint.ttf);
+}
+/*body{*/
+/*    background-color: #343a40;*/
+/*    color: wheat;*/
+/*}*/
+div{
+    font-family: "Segoe Print", serif;
+}
+
+.logo{
+    width: 180px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: wheat;
+}
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+    color: #d2691e;
+}
+.text-chocolate{
+    color: #d2691e;
+}
+.text-wheat{
+    color: wheat;
+}
+
+#searchKnowledge{
+    width: 350px;
+}
