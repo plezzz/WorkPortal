@@ -14,8 +14,8 @@
 <header class="sticky-top bg-dark">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/"><img class="logo" src="images/logo-chocolate-wheat.webp"
-                                                  alt="logo-work-portal"></a>
+            <a class="navbar-brand" href="./index.html"><img class="logo" src="images/logo-chocolate-wheat.webp"
+                                                             alt="logo-work-portal"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon">
@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Начало</a>
+                        <a class="nav-link" href="./index.html">Начало</a>
                     </li>
                     <!--    Allow if user is logged and have role Production or Service-->
                     <li class="nav-item active">
@@ -34,7 +34,7 @@
                     </li>
                     <!--    Allow if user is logged and have role Production or Service-->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Знание</a>
+                        <a class="nav-link" href="./knowledge.html">Знание</a>
                     </li>
                     <!--    Allow for all-->
                     <li class="nav-item">
@@ -51,17 +51,38 @@
     </div>
 </header>
 <main>
-<div class="m-3">
-    <div class="text-center">
+    <!--    <div class="m-3">-->
+    <div class="row bg-gray p-2 flex justify-content-center">
         <form action="#" method="post" class="form-inline my-2 my-lg-0">
             <label for="searchKnowledge"></label>
             <input class="form-control mr-sm-2" type="search" name="searchKnowledge" id="searchKnowledge"
                    placeholder="Търси знание">
         </form>
+        <i class=""></i>
     </div>
-
-</div>
-
+    <!--    </div>-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <div class="mt-3">
+                    <p class="flex-wrap text-center">Популярни тагове</p>
+                    <ul class="list-unstyled text-center" id="tags">
+                        <li>Printers</li>
+                        <li>Cartriges</li>
+                        <li>2612</li>
+                        <li>435</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="vl"></div>
+            <div class="col-8">
+                2 of 3 (wider)
+            </div>
+            <div class="col">
+                3 of 3
+            </div>
+        </div>
+    </div>
 </main>
 <footer>
     <div class="container-fluid">
