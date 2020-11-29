@@ -1,0 +1,40 @@
+<!--<ul class="navbar-nav mr-auto">-->
+<!--  <li class="nav-item">-->
+<!--    <a class="nav-link" href="./"></a>-->
+<!--  </li>-->
+<!--  <li class="nav-item dropdown">-->
+<!--    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"-->
+<!--       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--      Име-->
+<!--    </a>-->
+<!--    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--      <a class="dropdown-item" href="#">Профил</a>-->
+<!--      <a class="dropdown-item" href="#">Настройки</a>-->
+<!--      <div class="dropdown-divider"></div>-->
+<!--      <a class="dropdown-item" href="#">Изход</a>-->
+<!--    </div>-->
+<!--  </li>-->
+<!--</ul>-->
+
+<ul>
+  <li>
+    <a>
+      <i class="material-icons-outlined">message</i>
+    </a>
+    <ul class="dropdown">
+      <li *ngFor="let message of messages">{{message}}</li>
+    </ul>
+  </li>
+  <li>
+    <a>
+      <i class="material-icons-outlined">settings</i>
+    </a>
+    <ul class="dropdown">
+      <li><a href="#">Профил</a></li>
+      <li><a href="#">Настройки</a></li>
+      <hr>
+      <li><a href="#">Изход</a></li>
+    </ul>
+  </li>
+</ul>
+

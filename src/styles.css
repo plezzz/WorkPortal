@@ -1,0 +1,68 @@
+/*
+Main Colors:
+pink -  #e91e63
+wheat - #f5deb3
+main gray - #303030
+secondary gray - #424242
+white - #ffffff
+*/
+@font-face {
+  font-family: "Segoe Print";
+  src: url(assets/fonts/segoePrint.ttf);
+}
+
+* {
+  font-family: "Segoe Print", serif;
+  color: wheat;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+/*.cal-month-view {*/
+/*  background-color: #323232;*/
+/*  font-weight: bolder;*/
+/*}*/
+
+/*.cal-month-view .cal-cell-top {*/
+/*  background-color: #323232;*/
+/*  opacity: 0.7;*/
+/*  filter: alpha(opacity=30);*/
+/*}*/
+
+/*.cal-month-view .cal-day-number {*/
+/*  opacity: 0.8;*/
+/*}*/
+
+/*.cal-month-view .cal-day-cell.cal-weekend .cal-day-number {*/
+/*  opacity: 0.9;*/
+/*  color: #e91e63;*/
+/*}*/
+
+/*.cal-month-view .cal-events {*/
+/*  background-color: #323232;*/
+/*}*/
+
+/*.cal-month-view .cal-cell-row .cal-cell:hover,*/
+/*.cal-month-view .cal-cell.cal-has-events.cal-open {*/
+/*  background-color: #323232;*/
+/*}*/
+/*.cal-week-view .cal-hour:not(:last-child) .cal-hour-segment, .cal-week-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {*/
+/*  border-bottom-color: #c51818;*/
+/*  background-color: #323232;*/
+/*}*/
+.cal-week-view *, .cal-month-view .cal-day-number,
+.cal-month-view .cal-header .cal-cell,
+.cal-month-view .cal-day-number {
+  color: black;
+}
+
+.cal-week-view .cal-time, .cal-month-view .cal-day-number,
+.cal-month-view .cal-day-number {
+  opacity: 0.9;
+}

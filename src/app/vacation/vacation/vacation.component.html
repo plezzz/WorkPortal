@@ -1,0 +1,89 @@
+<div class="basic-container">
+  <mat-grid-list cols="3" rowHeight="3:1">
+    <mat-grid-tile>
+      <mat-button-toggle-group>
+        <mat-button-toggle
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+          Предишен
+        </mat-button-toggle>
+        <mat-button-toggle
+          class="btn btn-outline-secondary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate">
+          Днес
+        </mat-button-toggle>
+        <mat-button-toggle
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+          Следващ
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-button-toggle-group>
+        <mat-button-toggle
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month">
+          Месец
+        </mat-button-toggle>
+        <mat-button-toggle
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week">
+          Седмица
+        </mat-button-toggle>
+        <mat-button-toggle
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day">
+          Ден
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <br/>
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [weekStartsOn] = "weekStartsOn"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [locale]="locale"
+      [weekStartsOn] = "weekStartsOn"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [locale]="locale"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+</div>
