@@ -41,16 +41,16 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'app-vacation',
-  templateUrl: './vacation.component.html',
-  styleUrls: ['./vacation.component.css'],
+  selector: 'app-calendar',
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.css'],
   providers: [
     {
       provide: CalendarDateFormatter,
       useClass: DateFormatter,
     }]
 })
-export class VacationComponent {
+export class CalendarComponent {
   weekStartsOn = DAYS_OF_WEEK.MONDAY;
   locale: string = 'bg';
   @ViewChild('modalContent', {static: true}) modalContent: TemplateRef<any>;

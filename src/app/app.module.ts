@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -11,10 +12,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {SharedModule} from './sheard/shared.module';
+import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core/core.module';
 import {HomeComponent} from './home/home.component';
-import {VacationModule} from './vacation/vacation.module';
+import {EventModule} from './events/event.module';
+import {UserModule} from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {VacationModule} from './vacation/vacation.module';
     DragDropModule,
     SharedModule,
     CoreModule,
-    VacationModule,
+    EventModule,
+    UserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

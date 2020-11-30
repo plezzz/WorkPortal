@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule, registerLocaleData} from '@angular/common';
-import {VacationComponent} from './vacation/vacation.component';
-import {VacationRoutingModule} from './vacation-routing.module';
+import {CalendarComponent} from './calendar/calendar.component';
+import {EventRoutingModule} from './event-routing.module';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {AddEventComponent} from './add-event/add-event.component';
@@ -14,10 +14,10 @@ import localeBG from '@angular/common/locales/bg';
 registerLocaleData(localeBG);
 
 @NgModule({
-  declarations: [VacationComponent, AddEventComponent],
+  declarations: [CalendarComponent, AddEventComponent],
   imports: [
     CommonModule,
-    VacationRoutingModule,
+    EventRoutingModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
@@ -29,5 +29,5 @@ registerLocaleData(localeBG);
 
   ]
 })
-export class VacationModule {
+export class EventModule {
 }

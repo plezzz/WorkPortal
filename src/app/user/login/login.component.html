@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="center">
+    <form class="form">
+      <p>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Потребителско име</mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Парола</mat-label>
+          <label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+          </label>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+      <div class="form">
+        <button mat-raised-button color="primary" class="button">Вход</button>
+      </div>
+    </form>
+  </div>
+</div>

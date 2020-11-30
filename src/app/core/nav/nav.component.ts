@@ -1,44 +1,8 @@
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component, Input} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import { INavNode,IFlatNode } from 'src/app/sheard/interfaces';
-
-const TREE_DATA: INavNode[] = [
-  {
-    name: 'Начало',
-    url: '/',
-  }, {
-    name: 'Календар',
-    url: '/vacation',
-    children: [
-      {
-        name: 'Отпуск',
-        url: '/home',
-      },
-    ]
-  },
-  {
-    name: 'Начало',
-    url: '/',
-  },
-  {
-    name: 'Знание',
-    url: '/',
-  },
-  {
-    name: 'Указания и Правила',
-    url: '/',
-  },
-  {
-    name: 'Списък принтери',
-    url: '/',
-  },
-  {
-    name: 'Админ',
-    url: '/',
-  },
-];
-
+import {INavNode, IFlatNode} from 'src/app/shared/interfaces';
+import {TREE_DATA} from './routes'
 
 @Component({
   selector: 'app-nav',

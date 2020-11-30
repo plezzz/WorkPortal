@@ -1,4 +1,12 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" *ngIf="!isLogged">
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <a routerLink="/home"><img src="assets/images/logo-white-wheat.webp" alt="" class="logo"></a>
+    </mat-toolbar>
+    <app-login></app-login>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<mat-sidenav-container class="sidenav-container" *ngIf="isLogged">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -22,3 +30,4 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
