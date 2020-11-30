@@ -12,10 +12,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {UserService} from './user.service';
+import { RoleComponent } from './role/role.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, ProfileComponent],
+  declarations: [RegisterComponent, LoginComponent, ProfileComponent, RoleComponent],
   exports: [
     LoginComponent
   ],

@@ -95,26 +95,12 @@
         </tr>
         <tr>
           <td>
-            <mat-checkbox class="example-margin"
-                          [checked]="allComplete"
-                          [indeterminate]="someComplete()"
-                          (change)="setAll($event.checked)">
-              {{task.name}}
-            </mat-checkbox>
-            <ul>
-              <li *ngFor="let subtask of task.subtasks; index as i;">
-                <mat-checkbox
-                  #[subtask.name]="ngModel"
-                  [id]=subtask.name
-                  [name]=subtask.name
-
-                  [(ngModel)]="subtask.completed"
-                              [color]="subtask.color"
-                              (ngModelChange)="updateAllComplete();addRole(subtask)">
-                  {{subtask.name}}
-                </mat-checkbox>
-              </li>
-            </ul>
+            <div *ngIf="!isLoading">
+              <app-role [roles]="roles" (roleChange)="addRole($event)" ></app-role>
+            </div>
+            <div *ngIf="isLoading">
+              Loading...
+            </div>
           </td>
         </tr>
       </table>
@@ -124,4 +110,4 @@
     </form>
   </div>
 </div>
-{{roles}}
+
