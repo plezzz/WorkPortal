@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../user/user.service';
 
 @Component({
   selector: 'app-action-button',
@@ -7,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionButtonComponent implements OnInit {
 
-  constructor() { }
-  messages=['MessageOne','MessageTwo','MessageThree','MessageFour','MessageFive']
+  constructor(private userService: UserService) {
+  }
+
+  messages = ['MessageOne', 'MessageTwo', 'MessageThree', 'MessageFour', 'MessageFive']
+
   ngOnInit(): void {
+  }
+  logout() {
+    this.userService.logout().subscribe(res => console.log)
   }
 }

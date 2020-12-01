@@ -1,7 +1,9 @@
 <!--//username, email, jobTitle, password, repeatPassword, leadTeam,createdBy firstName,lastName-->
 <div class="container">
   <div class="center">
-    <form class="form" #f="ngForm" (ngSubmit)="registerHandler(f.value)">
+    <div *ngIf="!isLoading">
+    <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
+
       <span class="title">Регистрация</span>
       <table class="example-full-width">
         <tr>
@@ -9,7 +11,7 @@
             <mat-form-field appearance="fill" class="full-width form-group">
               <mat-label>Потребителско име</mat-label>
               <label>
-                <input #userNameInput="ngModel" id="username" name="username" matInput type="text" ngModel required
+                <input #username="ngModel" id="username" name="username" matInput type="text" ngModel required
                        pattern="^[a-zA-Z\.-]{3,}">
               </label>
             </mat-form-field>
@@ -18,8 +20,8 @@
             <mat-form-field appearance="fill" class="full-width form-group">
               <mat-label>Email</mat-label>
               <label>
-                <input #emailInput="ngModel" id="email" name="email" matInput type="email" ngModel required
-                       pattern="^[a-zA-Z\.-]{1,}@\w+\.[a-z]{1,}$">
+                <input #email="ngModel" id="email" name="email" matInput type="email" ngModel required
+                       pattern="^[a-zA-Z\.0-9]{1,}@\w+\.[a-z]{1,}$">
               </label>
             </mat-form-field>
           </td>
@@ -29,7 +31,7 @@
             <mat-form-field appearance="fill" class="full-width form-group">
               <mat-label>Име</mat-label>
               <label>
-                <input #firstNameInput="ngModel" id="firstName" name="firstName" matInput type="text" ngModel required>
+                <input #firstname="ngModel" id="firstName" name="firstName" matInput type="text" ngModel required>
               </label>
             </mat-form-field>
           </td>
@@ -37,7 +39,7 @@
             <mat-form-field appearance="fill" class="full-width form-group">
               <mat-label>Фамилия</mat-label>
               <label>
-                <input #lastNameInput="ngModel" id="lastName" name="lastName" matInput type="text" ngModel required>
+                <input #lastname="ngModel" id="lastName" name="lastName" matInput type="text" ngModel required>
               </label>
             </mat-form-field>
           </td>
@@ -47,7 +49,7 @@
             <mat-form-field appearance="fill" class="full-width form-group">
               <mat-label>Парола</mat-label>
               <label>
-                <input #passwordInput="ngModel" id="password" name="password" matInput
+                <input #password="ngModel" id="password" name="password" matInput
                        [type]="hide ? 'password' : 'text'" ngModel required>
               </label>
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -60,7 +62,7 @@
             <mat-form-field appearance="fill" class="full-width form-group">
               <mat-label>Повтори парола</mat-label>
               <label>
-                <input #rePasswordInput="ngModel" id="repeatPassword" name="repeatPassword" matInput
+                <input #rePassword="ngModel" id="repeatPassword" name="repeatPassword" matInput
                        [type]="hide ? 'password' : 'text'" ngModel required>
               </label>
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -72,11 +74,11 @@
         </tr>
         <tr>
           <td>
-            <mat-form-field appearance="fill" class="form-group">
+            <mat-form-field appearance="fill" class="form-group full-width">
               <mat-label>Отдел</mat-label>
-              <mat-select id="jobTitle" name="jobTitle" ngModel>
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                  {{food.viewValue}}
+              <mat-select #jobTitle="ngModel" id="jobTitle" name="jobTitle" ngModel required>
+                <mat-option *ngFor="let job of jobs" [value]="job._id">
+                  {{job.title}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -86,28 +88,53 @@
               #isLead="ngModel"
               id="isLead"
               name="isLead"
-              class="example-margin form-group"
+              class="margin form-group"
               color="primary"
-              checked="false" ngModel>
-              Началник
+              ngModel>
+              Началник на отдел
             </mat-slide-toggle>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div *ngIf="!isLoading">
-              <app-role [roles]="roles" (roleChange)="addRole($event)" ></app-role>
-            </div>
-            <div *ngIf="isLoading">
-              Loading...
-            </div>
+            <mat-slide-toggle
+              #isSupport="ngModel"
+              id="isSupport"
+              name="isSupport"
+              class="margin form-group"
+              color="warn"
+              ngModel>
+              Поддръжка на сайта
+            </mat-slide-toggle>
+            <mat-slide-toggle
+              #isAdmin="ngModel"
+              id="isAdmin"
+              name="isAdmin"
+              class="margin form-group"
+              color="accent"
+              ngModel>
+              Администратор
+            </mat-slide-toggle>
           </td>
         </tr>
       </table>
       <div class="button-container">
-        <button mat-raised-button color="primary" class="button">Регистрация</button>
+        <button mat-raised-button color="primary" class="button" [disabled]="f.invalid">Регистрация</button>
       </div>
+      <p *ngIf="username.touched && username.errors?.required" class="error">
+        Потребителското име е задължително!
+      </p>
+      {{username.errors}}
+      <p *ngIf="username.touched && username.errors?.emailValidator" class="error">
+        Потребителското име не е валидно! Минимум 3 латински букви.
+      </p>
+      <p *ngIf="email.touched && email.errors?.required" class="error">
+        Имейлът е задължително!
+      </p>
+      <p *ngIf="email.touched && email.errors?.emailValidator" class="error">
+        Имейлът не е валиден!
+      </p>
     </form>
+    </div>
+    <div *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
   </div>
 </div>
 

@@ -1,22 +1,24 @@
 import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user.service';
 import {IRole} from '../../shared/interfaces';
-import {Task} from '../register/register.component';
+import {ICategoryRole} from '../../shared/interfaces';
 
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.css']
 })
-export class RoleComponent implements OnInit, AfterViewInit {
+export class RoleComponent implements AfterViewInit {
   @Input() roles: IRole[];
 
-  task: Task = {
+  myModel = true
+  allComplete: boolean = false;
+  department: ICategoryRole = {
     name: 'Роли',
     completed: false,
     color: 'primary',
   };
-  allComplete: boolean = false;
+
   @Output() roleChange: EventEmitter<any> = new EventEmitter<any>();
   constructor(
     private user: UserService,
@@ -24,32 +26,28 @@ export class RoleComponent implements OnInit, AfterViewInit {
   ) {
   }
 
-  ngOnInit(): void {
-    // this.user.getRoles().subscribe(roles => this.roles = roles);
-  }
-
   ngAfterViewInit() {
-    this.task['subtasks']=this.roles;
+    this.department['roles']=this.roles;
     this.cdr.detectChanges();
   }
 
   updateAllComplete() {
-    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+    this.allComplete = this.department.roles != null && this.department.roles.every(t => t.completed);
   }
 
   someComplete(): boolean {
-    if (this.task.subtasks == null) {
+    if (this.department.roles == null) {
       return false;
     }
-    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+    return this.department.roles.filter(t => t.completed).length > 0 && !this.allComplete;
   }
 
   setAll(completed: boolean) {
     this.allComplete = completed;
-    if (this.task.subtasks == null) {
+    if (this.department.roles == null) {
       return;
     }
-    this.task.subtasks.forEach(t => t.completed = completed);
+    this.department.roles.forEach(t => t.completed = completed);
   }
 
   addRole(data: IRole): void {

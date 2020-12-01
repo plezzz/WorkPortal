@@ -4,7 +4,8 @@ export interface IBase {
   _id: string;
   createdAt: string;
   updatedAt: string;
-  createdBy: IUser;
-  editedBy: IUser;
+  createdBy: IUser | string;
+  editedBy: IUser | string;
   __v: number;
+  isDisabled: boolean;
 }

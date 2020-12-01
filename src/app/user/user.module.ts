@@ -11,12 +11,14 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {UserService} from './user.service';
 import { RoleComponent } from './role/role.component';
+import { JobComponent } from './job/job.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, ProfileComponent, RoleComponent],
+  declarations: [RegisterComponent, LoginComponent, ProfileComponent, RoleComponent, JobComponent],
   exports: [
     LoginComponent
   ],
@@ -28,6 +30,7 @@ import { RoleComponent } from './role/role.component';
     MatSlideToggleModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     UserRoutingModule,
     FormsModule
   ],

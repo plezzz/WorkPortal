@@ -2,19 +2,24 @@
               [checked]="allComplete"
               [indeterminate]="someComplete()"
               (change)="setAll($event.checked)">
-  {{task.name}}
+  {{department.name}}
 </mat-checkbox>
 <ul>
-  <li *ngFor="let subtask of task.subtasks; index as i;">
-    <mat-checkbox
-      #[subtask.title]="ngModel"
-      [id]=subtask.title
-      [name]=subtask.title
-
-      [(ngModel)]="subtask.completed"
-      [color]="subtask.color"
-      (ngModelChange)="updateAllComplete();addRole(subtask)">
-      {{subtask.title}}
+  <li>
+    <mat-checkbox [checked]="true" [disabled]="true" id="user" value="user" >
+      user
     </mat-checkbox>
   </li>
+  <li *ngFor="let role of department.roles; index as i;">
+    <mat-checkbox
+      #[subtask.title]="ngModel"
+      [id]=role.title
+      [name]=role.title
+      [(ngModel)]=role.completed
+      [color]=role.color
+      (ngModelChange)="updateAllComplete();addRole(role)">
+      {{role.title}}
+    </mat-checkbox>
+  </li>
+
 </ul>

@@ -1,24 +1,24 @@
 <div class="container">
   <div class="center">
-    <form class="form">
-      <p>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Потребителско име</mat-label>
-          <input matInput type="text">
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Парола</mat-label>
-          <label>
-            <input matInput [type]="hide ? 'password' : 'text'">
-          </label>
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
-      </p>
+    <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
+      <mat-form-field appearance="fill" class="full-width form-group">
+        <mat-label>Потребителско име</mat-label>
+        <label for="username"></label>
+        <input #username="ngModel" id="username" name="username" matInput type="text"
+               ngModel required value="sklad">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width form-group">
+        <mat-label>Парола</mat-label>
+        <label for="password">
+        </label><input #password="ngModel" id="password" name="password" matInput
+                       [type]="hide ? 'password' : 'text'" ngModel required value="1234">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
       <div class="form">
-        <button mat-raised-button color="primary" class="button">Вход</button>
+        <button mat-raised-button color="primary" class="button" [disabled]="f.invalid">Вход</button>
       </div>
     </form>
   </div>
