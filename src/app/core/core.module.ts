@@ -9,6 +9,7 @@ import {ActionButtonComponent} from './action-button/action-button.component';
 import {NotfoundComponent} from './notfound/notfound.component';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
+import {appInterceptorProvider} from './app.interceptor';
 
 @NgModule({
   declarations: [NavComponent, ActionButtonComponent, NotfoundComponent],
@@ -19,6 +20,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatTreeModule,
     RouterModule,
     MatButtonModule
+  ],
+  providers: [
+    appInterceptorProvider
   ],
   exports: [NavComponent, ActionButtonComponent, NotfoundComponent]
 })

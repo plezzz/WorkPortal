@@ -15,6 +15,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {UserService} from './user.service';
 import { RoleComponent } from './role/role.component';
 import { JobComponent } from './job/job.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { JobComponent } from './job/job.component';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     UserRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
   ],
   providers:[UserService]
 })

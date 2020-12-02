@@ -14,6 +14,8 @@ export class RegisterComponent implements OnInit {
   isLoading = true;
   hide = true;
   jobs: IJob[];
+
+
   //job: IJob;
 
   // roleData: IRole[] = [{
@@ -41,9 +43,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getJobs().subscribe(jobs=> {
+    this.userService.getJobs().subscribe(jobs => {
       this.jobs = jobs;
-      this.isLoading =false;
+      this.isLoading = false;
     })
     // this.data().subscribe(([roles, jobs]) => {
     //   this.roles = roles.filter(role => role._id != '5fc4079fa0d5884d6ce5835f');
@@ -68,7 +70,7 @@ export class RegisterComponent implements OnInit {
     if (formData.isLead === "") formData.isLead = false;
     if (formData.isSupport === "") formData.isSupport = false;
     if (formData.isAdmin === "") formData.isAdmin = false;
-   console.log(formData)
+    console.log(formData);
     this.userService.register(formData).subscribe({
       next: (data) => {
         this.router.navigate(['/']);
@@ -78,6 +80,10 @@ export class RegisterComponent implements OnInit {
       }
     });
 
+  }
+
+  message(f: string, s=null) {
+    return `${f} is required!` + s ? `${s}` : ``;
   }
 
   // addRole(data: IRole): void {
