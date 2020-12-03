@@ -16,6 +16,8 @@ import {UserService} from './user.service';
 import { RoleComponent } from './role/role.component';
 import { JobComponent } from './job/job.component';
 import {SharedModule} from '../shared/shared.module';
+import {MatDividerModule} from '@angular/material/divider';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import {SharedModule} from '../shared/shared.module';
     UserRoutingModule,
     FormsModule,
     SharedModule,
+    MatDividerModule,
+    FlexLayoutModule
   ],
   providers:[UserService]
 })

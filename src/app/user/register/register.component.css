@@ -1,62 +1,7 @@
-.container {
-  height: 90%;
-  position: relative;
-}
-
-.center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.button-container,
-.form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.full-width {
-  width: 100%;
-}
-
-
-td {
-  padding-right: 8px;
-}
-
-.button-container {
-  margin-top: 20px;
-}
-
-mat-slide-toggle {
-  position: relative;
-  top: -5px;
-}
-
-.button {
-  margin: auto;
-  font-size: larger;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.title{
-  font-size: 18px;
-  padding-bottom: 10px;
-}
-
-
-@media
-only screen
+@media only screen
 and (max-width: 760px), (min-device-width: 768px)
 and (max-device-width: 1024px) {
-  /* Force table to not be like tables anymore */
-  table, thead, tbody, th, td, tr {
-    display: block;
+  .container {
+    height: unset !important;
   }
 }

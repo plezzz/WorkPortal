@@ -6,9 +6,9 @@ import {NgForm} from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css','../../shared/css/login-register.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit {ng
   hide = true;
   @ViewChild('f', {static: false}) from: NgForm;
   constructor(private userService: UserService,
@@ -18,15 +18,13 @@ export class LoginComponent implements OnInit {
   }
 
   submitHandler(formData) {
-    console.log(formData)
     this.userService.login(formData).subscribe({
       next: (data) => {
         console.log(data)
-        this.router.navigate(['/']);
+        this.router.navigate(['/user/login']);
       },
       error: (err) => {
         console.log(err)
-
       }
     });
   }

@@ -10,6 +10,7 @@ import {NotfoundComponent} from './notfound/notfound.component';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import {appInterceptorProvider} from './app.interceptor';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [NavComponent, ActionButtonComponent, NotfoundComponent],
@@ -22,6 +23,7 @@ import {appInterceptorProvider} from './app.interceptor';
     MatButtonModule
   ],
   providers: [
+    AuthGuard,
     appInterceptorProvider
   ],
   exports: [NavComponent, ActionButtonComponent, NotfoundComponent]

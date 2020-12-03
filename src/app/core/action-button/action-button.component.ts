@@ -16,6 +16,7 @@ export class ActionButtonComponent implements OnInit {
   ngOnInit(): void {
   }
   logout() {
-    this.userService.logout().subscribe(res => console.log)
+    this.userService.logout()
+    console.log('logout button: '+ this.userService.isLogged)
   }
 }

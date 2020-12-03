@@ -8,7 +8,7 @@ import {forkJoin, Observable} from 'rxjs';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css','../../shared/css/login-register.css']
 })
 export class RegisterComponent implements OnInit {
   isLoading = true;
@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('User isLogged: '+this.userService.isLogged)
     this.userService.getJobs().subscribe(jobs => {
       this.jobs = jobs;
       this.isLoading = false;
@@ -73,7 +74,7 @@ export class RegisterComponent implements OnInit {
     console.log(formData);
     this.userService.register(formData).subscribe({
       next: (data) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         console.log(err)

@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -17,6 +17,10 @@ import {CoreModule} from './core/core.module';
 import {HomeComponent} from './home/home.component';
 import {EventModule} from './events/event.module';
 import {UserModule} from './user/user.module';
+import {AppInterceptor} from './core/app.interceptor';
+import {AuthGuard} from './core/guards/auth.guard';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,9 +42,17 @@ import {UserModule} from './user/user.module';
     CoreModule,
     EventModule,
     UserModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
