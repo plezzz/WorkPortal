@@ -1,12 +1,4 @@
-<mat-sidenav-container class="sidenav-container" *ngIf="!isLogged">
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <a routerLink="/home"><img src="assets/images/logo-white-wheat.webp" alt="" class="logo"></a>
-    </mat-toolbar>
-    <app-login></app-login>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<mat-sidenav-container class="sidenav-container" *ngIf="isLogged">
+<mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -25,9 +17,9 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <a routerLink="/home"><img src="assets/images/logo-white-wheat.webp" alt="" class="logo"></a>
-      <app-action-button></app-action-button>
+      <p>User is logged: {{isLogged}}</p>
+      <app-action-button ></app-action-button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-

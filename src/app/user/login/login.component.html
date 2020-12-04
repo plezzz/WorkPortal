@@ -6,9 +6,9 @@
     fxFlexFill
     fxLayoutAlign="center center"
   >
-    <div fxFlex="50">
+    <div fxFlex="50" class="form-container">
       <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
-        <span class="title">Вход</span>
+        <span class="title">Вход User is logged: {{isLogged}}</span>
         <hr>
         <mat-form-field appearance="fill" class="full-width form-group">
           <mat-label>Потребителско име</mat-label>

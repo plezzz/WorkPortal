@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import localeBG from '@angular/common/locales/bg';
+import { EventService } from './event.service';
 
 registerLocaleData(localeBG);
 
@@ -25,9 +26,10 @@ registerLocaleData(localeBG);
     MatGridListModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatToolbarModule
+    MatToolbarModule,
 
-  ]
+  ],
+  providers:[EventService]
 })
 export class EventModule {
 }

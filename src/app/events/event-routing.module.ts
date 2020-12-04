@@ -1,19 +1,20 @@
 import {RouterModule, Routes} from '@angular/router';
 import {CalendarComponent} from './calendar/calendar.component';
 import {AddEventComponent} from './add-event/add-event.component';
+import {AuthGuard} from '../core/guards/auth.guard';
 
 
 const routes: Routes = [
   {
     path: 'events',
-    canActivateChild: [],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
         component: CalendarComponent,
         data: {
-          isLogged: false,
+          isLogged: true,
           title: 'Календар'
         },
       }, {

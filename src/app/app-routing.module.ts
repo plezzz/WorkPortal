@@ -10,12 +10,13 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/home'
+        redirectTo: '/home',
       },
       {
         path: 'home',
         component: HomeComponent,
         data: {
+          isLogged: true,
           title: 'HOME'
         }
       },

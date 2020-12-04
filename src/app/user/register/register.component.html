@@ -13,7 +13,7 @@
     fxFlexFill
     fxLayoutAlign="center center"
   >
-    <div fxFlex="50">
+    <div fxFlex="50" class="form-container">
       <div *ngIf="!isLoading">
         <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
           <span class="title">Регистрация</span>
@@ -27,9 +27,15 @@
                     <input #username="ngModel" id="username" name="username" matInput type="text" ngModel required
                            pattern="^[a-zA-Z\.0-9]{3,}">
                   </label>
+                  <mat-icon matPrefix>sentiment_very_satisfied</mat-icon>
+                  <mat-hint (mouseover)="changeText=true" (mouseout)="changeText=false">
+                    <span *ngIf="!changeText">Инфо</span>
+                    <span *ngIf="changeText">Потребителското име трябва да е минимум 3 латинки знака и е задължително</span>
+                  </mat-hint>
                 </mat-form-field>
                 <div *ngIf="username.invalid && (username.dirty || username.touched)">
-                  <app-error [message]="message('Username','Minimum 3 latin letters')"></app-error>
+
+<!--                  <app-error [message]="message('Username','Minimum 3 latin letters')"></app-error>-->
                 </div>
               </td>
               <td>
@@ -111,7 +117,7 @@
                 <mat-form-field appearance="fill" class="form-group full-width">
                   <mat-label>Отдел</mat-label>
                   <mat-select #jobTitle="ngModel" id="jobTitle" name="jobTitle" ngModel required>
-                    <mat-option *ngFor="let job of jobs" [value]="job._id">
+                    <mat-option *ngFor="let job of jobs" [value]="job.id">
                       {{job.title}}
                     </mat-option>
                   </mat-select>

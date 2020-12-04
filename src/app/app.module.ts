@@ -47,11 +47,6 @@ import {CommonModule} from '@angular/common';
     CommonModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AppInterceptor,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent]
 })

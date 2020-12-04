@@ -45,6 +45,8 @@ export class AuthGuard implements CanActivateChild {
     // );
 
     const isLoggedFromData = childRoute.data.isLogged;
+
+    console.log(`${childRoute.component['name']} RequiredLogged: ${childRoute.data.isLogged}`);
     if (typeof isLoggedFromData === 'boolean' && isLoggedFromData === this.userService.isLogged) {
       return true;
     }

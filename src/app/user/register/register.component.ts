@@ -8,9 +8,9 @@ import {forkJoin, Observable} from 'rxjs';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css','../../shared/css/login-register.css']
+  styleUrls: ['./register.component.css', '../../shared/css/login-register.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,AfterViewInit {
   isLoading = true;
   hide = true;
   jobs: IJob[];
@@ -35,15 +35,17 @@ export class RegisterComponent implements OnInit {
 
   // @Output() roles: IRole[];
   // @Output() jobs: IJob[];
+  //@ViewChild('f', {static: false}) from: NgForm;
   @ViewChild('f', {static: false}) from: NgForm;
+   changeText: boolean;
 
   constructor(private userService: UserService,
               private router: Router
   ) {
+    this.changeText = false;
   }
 
   ngOnInit(): void {
-    console.log('User isLogged: '+this.userService.isLogged)
     this.userService.getJobs().subscribe(jobs => {
       this.jobs = jobs;
       this.isLoading = false;
@@ -61,9 +63,10 @@ export class RegisterComponent implements OnInit {
       this.userService.getJobs()])
   }
 
-  // ngAfterViewInit(): void {
-  //   this.from.valueChanges.subscribe(console.log);
-  // }
+  ngAfterViewInit(): void {
+    //this.from.form.valueChanges.subscribe(console.log)
+   // this.from.valueChanges.subscribe(console.log);
+  }
 
   submitHandler(formData) {
     // formData['role'] = this.roleData;
@@ -83,7 +86,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  message(f: string, s=null) {
+  message(f: string, s = null) {
     return `${f} is required!` + s ? `${s}` : ``;
   }
 

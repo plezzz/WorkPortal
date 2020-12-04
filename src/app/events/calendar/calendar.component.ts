@@ -1,20 +1,7 @@
-import {
-  Component,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-} from 'date-fns';
+import {Component, ViewChild, TemplateRef, OnInit,} from '@angular/core';
+import {startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours,} from 'date-fns';
 import {Subject} from 'rxjs';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import {
   CalendarDateFormatter,
   CalendarEvent,
@@ -24,6 +11,9 @@ import {
   DAYS_OF_WEEK,
 } from 'angular-calendar';
 import {DateFormatter} from '../date-formater';
+import {EventService} from '../event.service';
+import {IHoliday} from '../../shared/interfaces';
+import { Router } from '@angular/router';
 
 const colors: any = {
   red: {
@@ -38,6 +28,10 @@ const colors: any = {
     primary: '#e3bc08',
     secondary: '#FDF1BA',
   },
+  green: {
+    primary: '#55e308',
+    secondary: '#f8edbc',
+  },
 };
 
 @Component({
@@ -50,39 +44,16 @@ const colors: any = {
       useClass: DateFormatter,
     }]
 })
-export class CalendarComponent {
+
+export class CalendarComponent implements OnInit {
   weekStartsOn = DAYS_OF_WEEK.MONDAY;
   locale: string = 'bg';
-  @ViewChild('modalContent', {static: true}) modalContent: TemplateRef<any>;
+
 
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({event}: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({event}: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
-  ];
 
   refresh: Subject<any> = new Subject();
 
@@ -91,8 +62,8 @@ export class CalendarComponent {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
+      id:'dddd',
       color: colors.red,
-      actions: this.actions,
       allDay: true,
       resizable: {
         beforeStart: true,
@@ -102,15 +73,16 @@ export class CalendarComponent {
     },
     {
       start: startOfDay(new Date()),
-      title: 'An event with no end date',
+      title: `An event with no end date${new Date('Fri Dec 04 2021 12:05:37 GMT+0200 (Eastern European Standard Time)')}`,
       color: colors.yellow,
-      actions: this.actions,
+      id:'dddd',
     },
     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
       color: colors.blue,
+      id:'dddd',
       allDay: true,
     },
     {
@@ -118,18 +90,52 @@ export class CalendarComponent {
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
       color: colors.yellow,
-      actions: this.actions,
+      id:'dddd',
       resizable: {
         beforeStart: true,
         afterEnd: true,
       },
       draggable: true,
     },
+    {
+      start: startOfDay(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)')),
+      end: addDays(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)'), 2),
+      title: 'Киро е отпук от 04 до 08.12.2020',
+      color: colors.blue,
+      allDay: true,
+      id:'dddd',
+    },
   ];
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {
+  constructor(private eventService: EventService,private router: Router) {
+
+  }
+
+  ngOnInit(): void {
+    this.holidaysEvents()
+  }
+
+  holidaysEvents(): void {
+    this.eventService.holidays().subscribe((holidays) => {
+      holidays.forEach((year) => {
+        year.forEach((holiday: IHoliday) => {
+          this.events = [
+            ...this.events,
+            {
+              start: subDays(startOfDay(new Date(holiday.date)), 0),
+              title: holiday.localName,
+              color: colors.green,
+              id: "#",
+              allDay: true,
+            }
+          ];
+        })
+      })
+    })
+
+
   }
 
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
@@ -140,11 +146,7 @@ export class CalendarComponent {
     }
   }
 
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd,
-                    }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -159,8 +161,9 @@ export class CalendarComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = {event, action};
-    this.modal.open(this.modalContent, {size: 'lg'});
+    console.log(event)
+    let url = '/events/'+event.id
+    this.router.navigate([url])
   }
 
   addEvent(): void {
@@ -190,6 +193,5 @@ export class CalendarComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
-
   }
 }

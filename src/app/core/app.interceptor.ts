@@ -1,8 +1,15 @@
-import { Injectable, Provider } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Observable, EMPTY, of } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { catchError, filter, map } from 'rxjs/operators';
+import {Injectable, Provider} from '@angular/core';
+import {
+  HTTP_INTERCEPTORS,
+  HttpInterceptor,
+  HttpEvent,
+  HttpHandler,
+  HttpRequest,
+  HttpResponse
+} from '@angular/common/http';
+import {Observable, EMPTY, of} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {catchError, filter, map} from 'rxjs/operators';
 
 const apiURL = environment.apiURL;
 
@@ -16,9 +23,10 @@ export class AppInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!req.url.includes('http')) {
+
       req = req.clone({
-        withCredentials: true,
-        setHeaders:headers,
+        withCredentials: req.url !== 'login',
+        setHeaders: headers,
         url: `${apiURL}${req.url}`
       });
     }
@@ -28,25 +36,31 @@ export class AppInterceptor implements HttpInterceptor {
     //   req = req.clone({ withCredentials: true });
     // }
 
-    return next.handle(req).pipe(
-      map(e => {
-        if (e instanceof HttpResponse && e.url.includes('login')) {
-          // console.log(e.body._id)
-          const authToken = e.headers.get('Authentication');
-          console.log('this i log: '+ authToken)
-        }
+    return next.handle(req)
+      .pipe(
+        filter(event => event instanceof HttpResponse && event.url.includes('login')),
+        map((event: HttpResponse<any>) =>{
+        console.log(event)
+          return event
+        } )
+      )
 
-        return e;
-      }),
-      catchError(err => {
-        //console.error(err);
-        // push this error back into the stream so the other
-        // error handlers can handle it
-        return of(err);
-        // don't push back this error to the stream
-        // return EMPTY;
-      })
-    );
+    //   .pipe(
+    //   map(e => {
+    //     if (e instanceof HttpResponse && e.url.includes('login')) {
+    //       localStorage.setItem('id',JSON.stringify(e.body._id))
+    //     }
+    //     return e;
+    //   }),
+    //   catchError(err => {
+    //     //console.error(err);
+    //     // push this error back into the stream so the other
+    //     // error handlers can handle it
+    //     return of(err);
+    //     // don't push back this error to the stream
+    //     // return EMPTY;
+    //   })
+    // );
   }
 }
 

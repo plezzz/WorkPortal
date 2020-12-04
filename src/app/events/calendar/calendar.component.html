@@ -3,26 +3,23 @@
     <mat-grid-tile>
       <mat-button-toggle-group>
         <mat-button-toggle
-          class="btn btn-primary"
           mwlCalendarPreviousView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
-          Предишен
+          <i class="material-icons-outlined">undo</i>
         </mat-button-toggle>
         <mat-button-toggle
-          class="btn btn-outline-secondary"
           mwlCalendarToday
           [(viewDate)]="viewDate">
-          Днес
+          <i class="material-icons-outlined">today</i>
         </mat-button-toggle>
         <mat-button-toggle
-          class="btn btn-primary"
           mwlCalendarNextView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
-          Следващ
+          <i class="material-icons-outlined">redo</i>
         </mat-button-toggle>
       </mat-button-toggle-group>
     </mat-grid-tile>
@@ -34,23 +31,24 @@
         <mat-button-toggle
           (click)="setView(CalendarView.Month)"
           [class.active]="view === CalendarView.Month">
-          Месец
+          <i class="material-icons-outlined">calendar_today</i>
         </mat-button-toggle>
         <mat-button-toggle
           (click)="setView(CalendarView.Week)"
           [class.active]="view === CalendarView.Week">
-          Седмица
+          <i class="material-icons-outlined">date_range</i>
         </mat-button-toggle>
         <mat-button-toggle
           (click)="setView(CalendarView.Day)"
           [class.active]="view === CalendarView.Day">
-          Ден
+          <i class="material-icons-outlined">event</i>
         </mat-button-toggle>
       </mat-button-toggle-group>
     </mat-grid-tile>
   </mat-grid-list>
   <br/>
   <div [ngSwitch]="view">
+    <!--suppress TypeScriptValidateTypes -->
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"
