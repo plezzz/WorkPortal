@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../user/user.service';
 import {IJob} from '../../shared/interfaces/';
 import {AuthService} from '../auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -13,16 +14,16 @@ import {AuthService} from '../auth.service';
 export class RegisterComponent implements OnInit, AfterViewInit {
   isLoading = true;
   hide = true;
-  changeText: boolean;
-  job: IJob;
+  usernameHelp: boolean;
   jobs: IJob[];
   @ViewChild('f', {static: false}) from: NgForm;
 
   constructor(private userService: UserService,
               private authService: AuthService,
-              private router: Router
+              private router: Router,
+              private _snackBar: MatSnackBar
   ) {
-    this.changeText = false;
+    this.usernameHelp = false;
   }
 
   ngOnInit(): void {
@@ -33,8 +34,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    //this.from.valueChanges.subscribe()
     // this.from.form.valueChanges.subscribe(console.log)
-    // this.from.valueChanges.subscribe(console.log);
+    // console.log(this.from.status);
+    //this.from.valueChanges.subscribe(console.log);
   }
 
   submitHandler(formData): void {
@@ -53,13 +56,18 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.log(err);
+        this.openSnackBar(err.error.join('\n'),'X')
+        console.log(err.error);
       }
     });
 
   }
-
-  addJob(data: IJob): void {
-    this.job = data;
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 9000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end',
+      panelClass: ['error-snackbar'],
+    });
   }
 }

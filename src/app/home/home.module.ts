@@ -25,7 +25,7 @@ import {RouterModule} from '@angular/router';
     CoreModule,
     AuthModule,
     RouterModule,
-    //HomeRoutingModule,
+    HomeRoutingModule,
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,

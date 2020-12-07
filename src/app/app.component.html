@@ -1,6 +1,5 @@
 <ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>
 <ng-template #notLogged>
-  loading
   <app-login></app-login>
 <!--  <app-guest></app-guest>-->
 </ng-template>

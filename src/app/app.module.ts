@@ -31,12 +31,13 @@ import {HomeModule} from './home/home.module';
     DragDropModule,
     SharedModule,
     CoreModule,
-    EventModule,
+    AuthModule,
+    HomeModule,
     UserModule,
+    EventModule,
     HttpClientModule,
     FlexLayoutModule,
-    AuthModule,
-    HomeModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

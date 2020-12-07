@@ -1,7 +1,6 @@
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './auth/guards/guards.guard';
 import {NotFoundComponent} from './core/not-found/not-found.component';
-import {HomeComponent} from './home/home/home.component';
 
 const routes: Routes = [
   {
@@ -11,26 +10,18 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/home',
+        redirectTo: 'home',
       },
       {
         path: 'home',
-        component: HomeComponent,
-        data: {
-          //isLogged: true,
-          title: 'HOME'
-        },
+        canActivateChild: [AuthGuard],
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
         path: 'auth',
         canActivateChild: [AuthGuard],
         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
       },
-      // {
-      //   path: 'home',
-      //   canActivateChild: [AuthGuard],
-      //   loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-      // },
       {
         path: 'user',
         canActivateChild: [AuthGuard],

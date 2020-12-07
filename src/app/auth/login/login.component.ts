@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router, private route: ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar,
     // private errorHandler:ErrorHandlerModule
   ) {
   }
@@ -34,9 +37,19 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
+       this.openSnackBar(err.error.join('\n'),'X')
         // console.log('in login component err')
         console.log(err);
       }
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 9000,
+      verticalPosition: 'top',
+      horizontalPosition: 'end',
+      panelClass: ['error-snackbar'],
     });
   }
 }

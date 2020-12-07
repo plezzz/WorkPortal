@@ -4,6 +4,9 @@
       <div *ngIf="!isLoading">
         <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
           <span class="title">Регистрация</span>
+          <!--          <mat-icon matPrefix>sentiment_very_satisfied</mat-icon>-->
+          <span *ngIf="usernameHelp"><span class="important">Потребителското име</span> трябва да е минимум <span
+            class="important">3 латинки знака</span> и е <span class="important">задължително</span></span>
           <hr>
           <table class="full-width">
             <tr>
@@ -14,16 +17,12 @@
                     <input #username="ngModel" id="username" name="username" matInput type="text" ngModel required
                            pattern="^[a-zA-Z\.0-9]{3,}">
                   </label>
-                  <mat-icon matPrefix>sentiment_very_satisfied</mat-icon>
-                  <mat-hint (mouseover)="changeText=true" (mouseout)="changeText=false">
-                    <span *ngIf="!changeText">Инфо</span>
-                    <span
-                      *ngIf="changeText">Потребителското име трябва да е минимум 3 латинки знака и е задължително</span>
-                  </mat-hint>
+                  <mat-icon matSuffix (mouseover)="usernameHelp=true" (mouseout)="usernameHelp=false">help_outline
+                  </mat-icon>
+                  <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">
+                    Потребителското име е невалидно!
+                  </mat-error>
                 </mat-form-field>
-                <div *ngIf="username.invalid && (username.dirty || username.touched)">
-                  <app-error [message]="'Username is invalid'"></app-error>
-                </div>
               </td>
               <td>
                 <mat-form-field appearance="fill" class="full-width form-group">
@@ -32,13 +31,13 @@
                     <input #email="ngModel" id="email" name="email" matInput type="email" ngModel required
                            pattern="^[a-zA-Z\.0-9]{1,}@\w+\.[a-z]{1,}$">
                   </label>
+                  <mat-error *ngIf="email.errors?.required">
+                    Имейлът е задължителен!
+                  </mat-error>
+                  <mat-error *ngIf="email.invalid && (email.dirty)">
+                    Имейлът е невалиден!
+                  </mat-error>
                 </mat-form-field>
-                <div *ngIf="email.invalid && (email.touched)">
-                  <app-error [message]="'Email is required!'"></app-error>
-                </div>
-                <div *ngIf="email.invalid && (email.dirty)">
-                  <app-error [message]="'Email is not valid'"></app-error>
-                </div>
               </td>
             </tr>
             <tr>
@@ -48,10 +47,10 @@
                   <label>
                     <input #firstName="ngModel" id="firstName" name="firstName" matInput type="text" ngModel required>
                   </label>
+                  <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                    Името е задължително!
+                  </mat-error>
                 </mat-form-field>
-                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-                  <app-error [message]="'First name is required!'"></app-error>
-                </div>
               </td>
               <td>
                 <mat-form-field appearance="fill" class="full-width form-group">
@@ -59,10 +58,10 @@
                   <label>
                     <input #lastName="ngModel" id="lastName" name="lastName" matInput type="text" ngModel required>
                   </label>
+                  <mat-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                    Фамилията е задължителна!
+                  </mat-error>
                 </mat-form-field>
-                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
-                  <app-error [message]="'last name is required!'"></app-error>
-                </div>
               </td>
             </tr>
             <tr>
@@ -71,32 +70,44 @@
                   <mat-label>Парола</mat-label>
                   <label>
                     <input #password="ngModel" id="password" name="password" matInput
-                           [type]="hide ? 'password' : 'text'" ngModel required>
+                           [type]="hide ? 'password' : 'text'" ngModel required minlength="3">
                   </label>
-                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  <mat-error *ngIf="password.errors?.required && password.touched">
+                    Паролата е задължителна!
+                  </mat-error>
+                  <mat-error *ngIf="password.errors?.minlength && password.touched">
+                    Паролата трябва да е поне 3 символа!
+                  </mat-error>
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                          [attr.aria-label]="'Hide password'"
                           [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
+
                 </mat-form-field>
-                <div *ngIf="password.invalid && (password.dirty || password.touched)">
-                  <app-error [message]="'password is required!'"></app-error>
-                </div>
+
               </td>
               <td>
                 <mat-form-field appearance="fill" class="full-width form-group">
                   <mat-label>Повтори парола</mat-label>
                   <label>
+
                     <input #rePassword="ngModel" id="repeatPassword" name="repeatPassword" matInput
-                           [type]="hide ? 'password' : 'text'" ngModel required>
+                           [type]="hide ? 'password' : 'text'" ngModel required pattern="{{ password.value }}">
                   </label>
-                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                          [attr.aria-label]="'Hide password'"
                           [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
+                  <mat-error *ngIf="rePassword.errors?.required && rePassword.touched">
+                    Паролата е задължителна!
+                  </mat-error>
+                  <mat-error *ngIf="rePassword.errors?.pattern && rePassword.touched">
+                    Паролите не съвпадат!
+                  </mat-error>
                 </mat-form-field>
-                <div *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched)">
-                  <app-error [message]="'Repeat password is required!'"></app-error>
-                </div>
+                <!--                {{rePassword.errors | json}}-->
               </td>
             </tr>
             <tr>
@@ -108,10 +119,10 @@
                       {{job.title}}
                     </mat-option>
                   </mat-select>
+                  <mat-error *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)">
+                    Отделът е задължителен
+                  </mat-error>
                 </mat-form-field>
-                <div *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)">
-                  <app-error [message]="'Job Title is required!'"></app-error>
-                </div>
               </td>
               <td>
                 <mat-slide-toggle

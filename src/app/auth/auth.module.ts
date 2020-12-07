@@ -14,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
 import {AuthService} from './auth.service';
 import {AuthRoutingModule} from './auth-routing.module';
 import {AuthGuard} from './guards/guards.guard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -28,6 +29,7 @@ import {AuthGuard} from './guards/guards.guard';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
     FormsModule,
   ],
   exports: [

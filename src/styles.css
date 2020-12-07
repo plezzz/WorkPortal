@@ -5,7 +5,7 @@ wheat - #f5deb3
 main gray - #303030
 secondary gray - #424242
 white - #ffffff
-error - #f44336
+error - #f44336 || #ff6347
 */
 @font-face {
   font-family: "  Segoe Print";
@@ -69,3 +69,21 @@ body {
 .cal-month-view .cal-day-number {
   opacity: 0.9;
 }
+
+.error-snackbar {
+  background-color: #424242;
+
+}
+
+.error-snackbar span {
+  color: #ff4638;
+  font-weight: 600;
+  text-shadow: 0.05em 0 black, 0 0.05em black, -0.05em 0 black, 0 -0.05em black, -0.05em -0.05em black, -0.05em 0.05em black, 0.05em -0.05em black, 0.05em 0.05em black;
+}
+.error-snackbar button{
+  background-color: #e91e63;
+}
+.error-snackbar .mat-button-wrapper{
+  color: #f5deb3 !important;
+}
+
