@@ -1,66 +1,62 @@
 import {Injectable, Provider} from '@angular/core';
 import {
-  HTTP_INTERCEPTORS,
-  HttpInterceptor,
   HttpEvent,
   HttpHandler,
+  HttpInterceptor,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
+  HTTP_INTERCEPTORS,
+  HttpErrorResponse
 } from '@angular/common/http';
-import {Observable, EMPTY, of} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {catchError, filter, map} from 'rxjs/operators';
-
-const apiURL = environment.apiURL;
-
-const headers = {
-  'Authorization': 'Bearer my-token',
-  'Access-Control-Allow-Origin': '*'
-};
+import {catchError, finalize, map} from 'rxjs/operators';
+import {LoadingDialogService} from '../shared/loading/loading-dialog.service';
+//import {ErrorDialogService} from '../shared/errors/error-dialog.service';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
+  apiURL = environment.apiURL;
+  headers = {
+    Authorization: `Bearer hh`,
+    'Access-Control-Allow-Origin': '*'
+  };
+
+  constructor(private loadingDialogService: LoadingDialogService,
+              //private errorDialogService: ErrorDialogService
+  ) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.loadingDialogService.openDialog();
+    console.warn('request URL is: ', req.url);
     if (!req.url.includes('http')) {
-
       req = req.clone({
-        withCredentials: req.url !== 'login',
-        setHeaders: headers,
-        url: `${apiURL}${req.url}`
+        withCredentials: true,
+        // setHeaders: headers,
+        url: `${(this.apiURL)}${req.url}`
       });
     }
-
-    // if (req.url.includes(apiURL)) {
-    //   const setHeaders = {};
-    //   req = req.clone({ withCredentials: true });
-    // }
-
     return next.handle(req)
       .pipe(
-        filter(event => event instanceof HttpResponse && event.url.includes('login')),
-        map((event: HttpResponse<any>) =>{
-        console.log(event)
-          return event
-        } )
-      )
-
-    //   .pipe(
-    //   map(e => {
-    //     if (e instanceof HttpResponse && e.url.includes('login')) {
-    //       localStorage.setItem('id',JSON.stringify(e.body._id))
-    //     }
-    //     return e;
-    //   }),
-    //   catchError(err => {
-    //     //console.error(err);
-    //     // push this error back into the stream so the other
-    //     // error handlers can handle it
-    //     return of(err);
-    //     // don't push back this error to the stream
-    //     // return EMPTY;
-    //   })
-    // );
+        map((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            //   console.log('event2--->>>', event.body);
+          }
+          return event;
+        }),
+        // catchError((error: HttpErrorResponse) => {
+        //   console.error("Error from error interceptor", error);
+        //   let message = JSON.parse(error.error).join('\n');
+        //   console.warn("Error message", message);
+        //
+        //   this.errorDialogService.openDialog(message ?? error, error.statusText);
+        //   return throwError(error);
+        // }),
+        finalize(() => {
+          this.loadingDialogService.hideDialog();
+        })
+      ) as Observable<HttpEvent<any>>;
   }
 }
 

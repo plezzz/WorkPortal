@@ -19,10 +19,12 @@ error - #f44336
 
 html, body {
   height: 100%;
+
 }
 
 body {
   margin: 0;
+  background-color: #323232;
 }
 
 /*.cal-month-view {*/

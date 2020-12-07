@@ -1,0 +1,30 @@
+<section>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutAlign="center center">
+    <div fxFlex="50" class="form-container">
+      <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
+        <span class="title">Вход User is logged: {{(isLogged$ | async)}}</span>
+        <hr>
+        <mat-form-field appearance="fill" class="full-width form-group">
+          <mat-label>Потребителско име</mat-label>
+          <label for="username"></label>
+          <input #username="ngModel" id="username" name="username" matInput type="text"
+                 ngModel required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width form-group">
+          <mat-label>Парола</mat-label>
+          <label for="password">
+          </label><input #password="ngModel" id="password" autocomplete="off" name="password" matInput
+                         [type]="hide ? 'password' : 'text'" ngModel required>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <hr>
+        <div class="button-container">
+          <button mat-raised-button color="primary" class="button" [disabled]="f.invalid">Вход</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

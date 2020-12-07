@@ -1,0 +1,9 @@
+<div *ngIf="data.status != 200">
+  Статус: {{data.status}}
+</div>
+<div class="line-breaker">
+ Съобщение: {{data.message | wrapText:4}}!!! 🥺
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

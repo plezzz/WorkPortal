@@ -1,6 +1,7 @@
 # Editor configuration, see https://editorconfig.org
 root = true
 
+# noinspection EditorConfigKeyCorrectness
 [*]
 charset = utf-8
 indent_style = space

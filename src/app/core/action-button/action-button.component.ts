@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../user/user.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-action-button',
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class ActionButtonComponent implements OnInit {
 
-  constructor(private userService: UserService,
+  constructor(private authService: AuthService,
   private router: Router) {
   }
 
@@ -18,10 +18,7 @@ export class ActionButtonComponent implements OnInit {
   ngOnInit(): void {
   }
   logout() {
-    this.userService.logout()
+    this.authService.logout().subscribe(e => console.log)
     this.router.navigateByUrl('/user/login')
-    //   .then(() => {
-    //   window.location.reload();
-    // });
   }
 }

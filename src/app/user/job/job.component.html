@@ -1,9 +1,0 @@
-<mat-form-field appearance="fill" class="form-group full-width">
-  <mat-label>Отдел</mat-label>
-  <mat-select #jobTitle="ngModel" id="jobTitle" name="jobTitle" ngModel
-              (ngModelChange)="job(jobTitle.value)">
-    <mat-option *ngFor="let job of jobs" [value]="job._id">
-      {{job.title}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>

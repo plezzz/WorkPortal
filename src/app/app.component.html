@@ -1,25 +1,11 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-               [mode]="(isHandset$ | async) ? 'over' : 'side'"
-               [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Меню</mat-toolbar>
-    <app-nav></app-nav>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <a routerLink="/home"><img src="assets/images/logo-white-wheat.webp" alt="" class="logo"></a>
-      <p>User is logged: {{isLogged}}</p>
-      <app-action-button ></app-action-button>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>
+<ng-template #notLogged>
+  loading
+  <app-login></app-login>
+<!--  <app-guest></app-guest>-->
+</ng-template>
+<ng-template #logged>
+<!--  <div *ngIf="!(isReady$ | async)">Loading</div>-->
+<!--  <app-main *ngIf="(isReady$ | async)"></app-main>-->
+  <app-main></app-main>
+</ng-template>
