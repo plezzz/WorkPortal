@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
-    // private errorHandler:ErrorHandlerModule
   ) {
   }
 
