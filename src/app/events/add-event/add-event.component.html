@@ -1,114 +1,221 @@
-<!--&lt;!&ndash; Everything you see below is just for the demo, you don't need to include it in your app &ndash;&gt;-->
+<!--
+ Common: description, from, to
+Sick: replacement,
+Vacantion: replacement,
+homeOffice:
+ -->
 
-<!--<br /><br /><br />-->
+<section>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutAlign="center center">
+    <div fxFlex="50" class="form-container">
 
-<!--<h3>-->
-<!--  Edit events-->
-<!--  <button class="btn btn-primary float-right" (click)="addEvent()">-->
-<!--    Add new-->
-<!--  </button>-->
-<!--  <div class="clearfix"></div>-->
-<!--</h3>-->
+      <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
+        <span class="title">Добавяне на събитие</span>
+        <!--          <mat-icon matPrefix>sentiment_very_satisfied</mat-icon>-->
 
-<!--<div class="table-responsive">-->
-<!--  <table class="table table-bordered">-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--      <th>Title</th>-->
-<!--      <th>Primary color</th>-->
-<!--      <th>Secondary color</th>-->
-<!--      <th>Starts at</th>-->
-<!--      <th>Ends at</th>-->
-<!--      <th>Remove</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
+        <hr>
 
-<!--    <tbody>-->
-<!--    <tr *ngFor="let event of events">-->
-<!--      <td>-->
-<!--        <input-->
-<!--          type="text"-->
-<!--          class="form-control"-->
-<!--          [(ngModel)]="event.title"-->
-<!--          (keyup)="refresh.next()"-->
-<!--        />-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <input-->
-<!--          type="color"-->
-<!--          [(ngModel)]="event.color.primary"-->
-<!--          (change)="refresh.next()"-->
-<!--        />-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <input-->
-<!--          type="color"-->
-<!--          [(ngModel)]="event.color.secondary"-->
-<!--          (change)="refresh.next()"-->
-<!--        />-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <input-->
-<!--          class="form-control"-->
-<!--          type="text"-->
-<!--          mwlFlatpickr-->
-<!--          [(ngModel)]="event.start"-->
-<!--          (ngModelChange)="refresh.next()"-->
-<!--          [altInput]="true"-->
-<!--          [convertModelValue]="true"-->
-<!--          [enableTime]="true"-->
-<!--          dateFormat="Y-m-dTH:i"-->
-<!--          altFormat="F j, Y H:i"-->
-<!--          placeholder="Not set"-->
-<!--        />-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <input-->
-<!--          class="form-control"-->
-<!--          type="text"-->
-<!--          mwlFlatpickr-->
-<!--          [(ngModel)]="event.end"-->
-<!--          (ngModelChange)="refresh.next()"-->
-<!--          [altInput]="true"-->
-<!--          [convertModelValue]="true"-->
-<!--          [enableTime]="true"-->
-<!--          dateFormat="Y-m-dTH:i"-->
-<!--          altFormat="F j, Y H:i"-->
-<!--          placeholder="Not set"-->
-<!--        />-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <button class="btn btn-danger" (click)="deleteEvent(event)">-->
-<!--          Delete-->
-<!--        </button>-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--</div>-->
+        <mat-form-field appearance="fill" class="full-width form-group">
+          <mat-label>Въведете период</mat-label>
+          <mat-date-range-input [rangePicker]="picker2">
+            <input matStartDate placeholder="Start date" #from="ngModel" id="from" name="from" ngModel required>
+            <input matEndDate placeholder="End date" #to="ngModel" id="to" name="to" ngModel required>
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-date-range-picker touchUi #picker2 disabled="false"></mat-date-range-picker>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width form-group">
+          <mat-label>Описание</mat-label>
+          <label>
+            <textarea #description="ngModel" id="description" name="description" matInput type="text" ngModel></textarea>
+          </label>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-group full-width">
+          <mat-label>Събитие</mat-label>
+          <mat-select #event="ngModel" id="event" name="event" ngModel required [(ngModel)]="playerName" (closed)="categorySelect(event.value)">
+            <mat-option *ngFor="let category of categorys" [value]="category['value']">
+              {{category.text}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="event.invalid && (event.dirty || event.touched)">
+            Типа на събитието е задължително
+          </mat-error>
+        </mat-form-field>
+        <!--          <table class="full-width">-->
+        <!--            <tr>-->
+        <!--              <td>-->
+        <!--                <mat-form-field appearance="fill">-->
+        <!--                  <mat-label>От</mat-label>-->
+        <!--                  <label>-->
+        <!--                    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="dpFrom" disabled>-->
+        <!--                  </label>-->
+        <!--                  <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>-->
+        <!--                  <mat-datepicker #dpFrom disabled="false"></mat-datepicker>-->
+        <!--                </mat-form-field>-->
+        <!--              </td>-->
+        <!--              <td>-->
+        <!--                <mat-form-field appearance="fill">-->
+        <!--                  <mat-label>До</mat-label>-->
+        <!--                  <label>-->
+        <!--                    <input matInput [matDatepicker]="dpTo" disabled>-->
+        <!--                  </label>-->
+        <!--                  <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>-->
+        <!--                  <mat-datepicker #dpTo disabled="false"></mat-datepicker>-->
+        <!--                </mat-form-field>-->
+        <!--              </td>-->
+        <!--            </tr>-->
+        <!--&lt;!&ndash;            <tr><td>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <mat-form-field appearance="fill">&ndash;&gt;-->
+        <!--&lt;!&ndash;              <mat-label>Enter a date range</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <mat-date-range-input [rangePicker]="picker">&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input matStartDate placeholder="Start date">&ndash;&gt;-->
+        <!--&lt;!&ndash;                <input matEndDate placeholder="End date">&ndash;&gt;-->
+        <!--&lt;!&ndash;              </mat-date-range-input>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <mat-date-range-picker #picker></mat-date-range-picker>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </td></tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="full-width form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Потребителско име</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input #username="ngModel" id="username" name="username" matInput type="text" ngModel required&ndash;&gt;-->
+        <!--&lt;!&ndash;                           pattern="^[a-zA-Z\.0-9]{3,}">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </label>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;                  <mat-icon matSuffix (mouseover)="usernameHelp=true" (mouseout)="usernameHelp=false">help_outline&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;                  </mat-icon>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;                  <mat-error *ngIf="username.invalid && (username.dirty || username.touched)">&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;                    Потребителското име е невалидно!&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;                  </mat-error>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="full-width form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Email</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input #email="ngModel" id="email" name="email" matInput type="email" ngModel required&ndash;&gt;-->
+        <!--&lt;!&ndash;                           pattern="^[a-zA-Z\.0-9]{1,}@\w+\.[a-z]{1,}$">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="email.errors?.required">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Имейлът е задължителен!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="email.invalid && (email.dirty)">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Имейлът е невалиден!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="full-width form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Име</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input #firstName="ngModel" id="firstName" name="firstName" matInput type="text" ngModel required>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Името е задължително!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="full-width form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Фамилия</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input #lastName="ngModel" id="lastName" name="lastName" matInput type="text" ngModel required>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Фамилията е задължителна!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="full-width form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Парола</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <input #password="ngModel" id="password" name="password" matInput&ndash;&gt;-->
+        <!--&lt;!&ndash;                            ngModel required minlength="3">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="password.errors?.required && password.touched">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Паролата е задължителна!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="password.errors?.minlength && password.touched">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Паролата трябва да е поне 3 символа!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
 
-<!--<ng-template #modalContent let-close="close">-->
-<!--  <div class="modal-header">-->
-<!--    <h5 class="modal-title">Event action occurred</h5>-->
-<!--    <button type="button" class="close" (click)="close()">-->
-<!--      <span aria-hidden="true">&times;</span>-->
-<!--    </button>-->
-<!--  </div>-->
-<!--  <div class="modal-body">-->
-<!--    <div>-->
-<!--      Action:-->
-<!--      <pre>{{ modalData?.action }}</pre>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      Event:-->
-<!--      <pre>{{ modalData?.event | json }}</pre>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="modal-footer">-->
-<!--    <button type="button" class="btn btn-outline-secondary" (click)="close()">-->
-<!--      OK-->
-<!--    </button>-->
-<!--  </div>-->
-<!--</ng-template>-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
 
-<p>add event works</p>
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="full-width form-group">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Повтори парола</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <label>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                    <input #rePassword="ngModel" id="repeatPassword" name="repeatPassword" matInput&ndash;&gt;-->
+        <!--&lt;!&ndash;                            ngModel required pattern="{{ password.value }}">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="rePassword.errors?.required && rePassword.touched">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Паролата е задължителна!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="rePassword.errors?.pattern && rePassword.touched">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Паролите не съвпадат!&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;                &lt;!&ndash;                {{rePassword.errors | json}}&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-form-field appearance="fill" class="form-group full-width">&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-label>Отдел</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-select #jobTitle="ngModel" id="jobTitle" name="jobTitle" ngModel required>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <mat-option *ngFor="let job of jobs" [value]="job['_id']">&ndash;&gt;-->
+        <!--&lt;!&ndash;                      {{job.title}}&ndash;&gt;-->
+        <!--&lt;!&ndash;                    </mat-option>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-select>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  <mat-error *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)">&ndash;&gt;-->
+        <!--&lt;!&ndash;                    Отделът е задължителен&ndash;&gt;-->
+        <!--&lt;!&ndash;                  </mat-error>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-form-field>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;              <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-slide-toggle&ndash;&gt;-->
+        <!--&lt;!&ndash;                  #isLead="ngModel"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  id="isLead"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  name="isLead"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  class="margin form-group"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  color="primary"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  ngModel>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  Началник на отдел&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-slide-toggle>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-slide-toggle&ndash;&gt;-->
+        <!--&lt;!&ndash;                  #isSupport="ngModel"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  id="isSupport"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  name="isSupport"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  class="margin form-group"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  color="warn"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  ngModel>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  Поддръжка на сайта&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-slide-toggle>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <mat-slide-toggle&ndash;&gt;-->
+        <!--&lt;!&ndash;                  #isAdmin="ngModel"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  id="isAdmin"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  name="isAdmin"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  class="margin form-group"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  color="accent"&ndash;&gt;-->
+        <!--&lt;!&ndash;                  ngModel>&ndash;&gt;-->
+        <!--&lt;!&ndash;                  Администратор&ndash;&gt;-->
+        <!--&lt;!&ndash;                </mat-slide-toggle>&ndash;&gt;-->
+        <!--&lt;!&ndash;              </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+        <!--          </table>-->
+        <hr>
+        <div class="button-container">
+          <button mat-raised-button color="primary" class="button" [disabled]="f.invalid">Регистрация</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

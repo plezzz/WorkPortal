@@ -20,6 +20,10 @@ export const TREE_DATA: INavNode[] = [
     url: '/user/register',
   },
   {
+    name: 'Добави събитие',
+    url: '/events/add-event',
+  },
+  {
     name: 'login',
     url: '/user/login',
   },

@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css', '../../shared/css/login-register.css']
+  styleUrls: ['./login.component.css', '../../shared/css/form.css']
 })
 export class LoginComponent implements OnInit {
   // ng

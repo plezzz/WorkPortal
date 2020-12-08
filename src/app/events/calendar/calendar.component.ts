@@ -62,7 +62,7 @@ export class CalendarComponent implements OnInit {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
-      id: 'dddd',
+      id: 'holiday',
       color: colors.red,
       allDay: true,
       resizable: {
@@ -75,14 +75,14 @@ export class CalendarComponent implements OnInit {
       start: startOfDay(new Date()),
       title: `An event with no end date${new Date('Fri Dec 04 2021 12:05:37 GMT+0200 (Eastern European Standard Time)')}`,
       color: colors.yellow,
-      id: 'dddd',
+      id: 'holiday',
     },
     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
       title: 'A long event that spans 2 months',
       color: colors.blue,
-      id: 'dddd',
+      id: 'holiday',
       allDay: true,
     },
     {
@@ -90,7 +90,7 @@ export class CalendarComponent implements OnInit {
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
       color: colors.yellow,
-      id: 'dddd',
+      id: 'holiday',
       resizable: {
         beforeStart: true,
         afterEnd: true,
@@ -103,7 +103,7 @@ export class CalendarComponent implements OnInit {
       title: 'Киро е отпук от 04 до 08.12.2020',
       color: colors.blue,
       allDay: true,
-      id: 'dddd',
+      id: 'holiday',
     },
   ];
 
@@ -119,19 +119,20 @@ export class CalendarComponent implements OnInit {
 
   holidaysEvents(): void {
     this.eventService.holidays().subscribe((holidays) => {
-      let allHolydays = holidays[0].concat(holidays[1], holidays[2])
-      allHolydays.forEach((holiday: IHoliday) => {
-        this.events = [
-          ...this.events,
-          {
-            start: subDays(startOfDay(new Date(holiday.date)), 0),
-            title: holiday.localName,
-            color: colors.green,
-            id: "#",
-            allDay: true,
-          }
-        ];
-      })
+      console.log(holidays)
+      // let allHolydays = holidays[0].concat(holidays[1], holidays[2])
+      // allHolydays.forEach((holiday: IHoliday) => {
+      //   this.events = [
+      //     ...this.events,
+      //     {
+      //       start: subDays(startOfDay(new Date(holiday.date)), 0),
+      //       title: holiday.localName,
+      //       color: colors.green,
+      //       id: "holiday",
+      //       allDay: true,
+      //     }
+      //   ];
+      // })
     })
   }
 
@@ -159,7 +160,8 @@ export class CalendarComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     console.log(event)
-    let url = '/events/' + event.id
+    let url = '/events/' + event.id === 'holiday'? event.id:'/events/'
+    console.log(url)
     this.router.navigate([url])
   }
 

@@ -18,7 +18,7 @@ const routes: Routes = [
     pathMatch: 'full',
     component: AddEventComponent,
     data: {
-      isLogged: false,
+      isLogged: true,
       title: 'Календар'
     },
   },

@@ -9,10 +9,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css', '../../shared/css/login-register.css']
+  styleUrls: ['./register.component.css', '../../shared/css/form.css']
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
   isLoading = true;
+  user = this.authService.currentUser$
   hide = true;
   usernameHelp: boolean;
   jobs: IJob[];

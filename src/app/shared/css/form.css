@@ -1,5 +1,5 @@
 .flexbox-parent {
-@include display-flex;
+  display: flex;
   background: #FFD54F;
   overflow: hidden;
   width: 100%;
