@@ -2,7 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../auth.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,6 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
        this.openSnackBar(err.error.join('\n'),'X')
-        // console.log('in login component err')
         console.log(err);
       }
     });
