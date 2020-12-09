@@ -1,10 +1,10 @@
-<ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>
-<ng-template #notLogged>
-  <app-login></app-login>
-<!--  <app-guest></app-guest>-->
-</ng-template>
-<ng-template #logged>
+<!--<ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>-->
+<!--<ng-template #notLogged>-->
+<!--  <app-login></app-login>-->
+<!--&lt;!&ndash;  <app-guest></app-guest>&ndash;&gt;-->
+<!--</ng-template>-->
+<!--<ng-template #logged>-->
 <!--  <div *ngIf="!(isReady$ | async)">Loading</div>-->
 <!--  <app-main *ngIf="(isReady$ | async)"></app-main>-->
   <app-main></app-main>
-</ng-template>
+<!--</ng-template>-->

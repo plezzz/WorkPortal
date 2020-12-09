@@ -6,7 +6,7 @@ import {AuthService} from '../auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivateChild {
-  url = this.router.url
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    console.warn('URL', this.url)
     return this.authService.currentUser$.pipe(
       switchMap(user => user === undefined ? this.authService.authenticate() : [user]),
       map((user) => {

@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IJob} from '../shared/interfaces';
+import {IJob, IUser} from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -14,4 +14,9 @@ export class UserService {
   getJobs(): Observable<IJob[]> {
     return this.http.get<IJob[]>(`job`);
   }
+
+  getUsersQuery(query: string | null = null): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`user/allUsersQuery?${query}`);
+  }
 }
+

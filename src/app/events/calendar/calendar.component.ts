@@ -1,5 +1,5 @@
-import {Component, ViewChild, TemplateRef, OnInit,} from '@angular/core';
-import {startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours,} from 'date-fns';
+import {Component, ViewChild, TemplateRef, OnInit} from '@angular/core';
+import {startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours} from 'date-fns';
 import {Subject} from 'rxjs';
 
 import {
@@ -47,7 +47,7 @@ const colors: any = {
 
 export class CalendarComponent implements OnInit {
   weekStartsOn = DAYS_OF_WEEK.MONDAY;
-  locale: string = 'bg';
+  locale = 'bg';
 
 
   view: CalendarView = CalendarView.Month;
@@ -58,82 +58,125 @@ export class CalendarComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      id: 'holiday',
-      color: colors.red,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: `An event with no end date${new Date('Fri Dec 04 2021 12:05:37 GMT+0200 (Eastern European Standard Time)')}`,
-      color: colors.yellow,
-      id: 'holiday',
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      id: 'holiday',
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      id: 'holiday',
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)')),
-      end: addDays(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)'), 2),
-      title: 'Киро е отпук от 04 до 08.12.2020',
-      color: colors.blue,
-      allDay: true,
-      id: 'holiday',
-    },
+    // {
+    //   start: subDays(startOfDay(new Date()), 1),
+    //   end: addDays(new Date(), 1),
+    //   title: 'A 3 day event',
+    //   id: 'holiday',
+    //   color: colors.red,
+    //   allDay: true,
+    //   resizable: {
+    //     beforeStart: true,
+    //     afterEnd: true,
+    //   },
+    //   draggable: true,
+    // },
+    // {
+    //   start: startOfDay(new Date()),
+    //   title: `An event with no end date${new Date('Fri Dec 04 2021 12:05:37 GMT+0200 (Eastern European Standard Time)')}`,
+    //   color: colors.yellow,
+    //   id: 'holiday',
+    // },
+    // {
+    //   start: subDays(endOfMonth(new Date()), 3),
+    //   end: addDays(endOfMonth(new Date()), 3),
+    //   title: 'A long event that spans 2 months',
+    //   color: colors.blue,
+    //   id: 'holiday',
+    //   allDay: true,
+    // },
+    // {
+    //   start: addHours(startOfDay(new Date()), 2),
+    //   end: addHours(new Date(), 2),
+    //   title: 'A draggable and resizable event',
+    //   color: colors.yellow,
+    //   id: 'holiday',
+    //   resizable: {
+    //     beforeStart: true,
+    //     afterEnd: true,
+    //   },
+    //   draggable: true,
+    // },
+    // {
+    //   start: startOfDay(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)')),
+    //   end: addDays(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)'), 2),
+    //   title: 'Киро е отпук от 04 до 08.12.2020',
+    //   color: colors.blue,
+    //   allDay: true,
+    //   id: 'holiday',
+    // },
   ];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen = true;
 
   constructor(private eventService: EventService, private router: Router) {
 
   }
 
   ngOnInit(): void {
-    this.holidaysEvents()
+    this.holidaysEvents();
+    this.workEvents();
   }
 
   holidaysEvents(): void {
     this.eventService.holidays().subscribe((holidays) => {
-      console.log(holidays)
-      // let allHolydays = holidays[0].concat(holidays[1], holidays[2])
-      // allHolydays.forEach((holiday: IHoliday) => {
-      //   this.events = [
-      //     ...this.events,
-      //     {
-      //       start: subDays(startOfDay(new Date(holiday.date)), 0),
-      //       title: holiday.localName,
-      //       color: colors.green,
-      //       id: "holiday",
-      //       allDay: true,
-      //     }
-      //   ];
-      // })
-    })
+      const allHolidays = holidays[0].concat(holidays[1], holidays[2]);
+      allHolidays.forEach((holiday: IHoliday) => {
+        this.events = [
+          ...this.events,
+          {
+            start: subDays(startOfDay(new Date(holiday.date)), 0),
+            title: holiday.localName,
+            color: colors.green,
+            id: 'holiday',
+            allDay: true,
+          }
+        ];
+      });
+    });
+  }
+
+  workEvents(): void {
+    this.eventService.workEvents().subscribe((allEvents) => {
+        let counter = 0;
+        let colorType;
+        let text;
+        allEvents.forEach((events) => {
+          if (counter === 0) {
+            colorType = colors.red;
+            text = `e болничен`;
+          } else if (counter === 1) {
+            colorType = colors.yellow;
+            text = `работи от вкъщи`;
+          } else {
+            colorType = colors.blue;
+            text = `е отпуск`;
+          }
+          events.forEach((event) => {
+            const fromDate: any = new Date(event.from);
+            const toDate: any = new Date(event.to);
+            const diffTime = Math.abs(toDate - fromDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            console.log(event.from);
+            this.events = [
+              ...this.events,
+              {
+                start: subDays(startOfDay(fromDate), 0),
+                end: addDays(fromDate, diffDays),
+                title: `${event.createdBy.firstName} ${text} от ${this.normalizeDate(fromDate)} до ${this.normalizeDate(toDate)}`,
+                color: colorType,
+                id: event._id,
+                allDay: true,
+              }];
+          });
+          counter++;
+        });
+      }
+    );
+  }
+
+  normalizeDate(Date: Date): string {
+    return `${Date.getDate()}.${Date.getMonth() + 1}.${Date.getFullYear()}`;
   }
 
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
@@ -144,7 +187,7 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -159,10 +202,10 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log(event)
-    let url = '/events/' + event.id === 'holiday'? event.id:'/events/'
-    console.log(url)
-    this.router.navigate([url])
+    console.log(event);
+    const url = '/events/' + event.id === 'holiday' ? event.id : '/events/';
+    console.log(url);
+    this.router.navigate([url]);
   }
 
   addEvent(): void {
@@ -182,15 +225,16 @@ export class CalendarComponent implements OnInit {
     ];
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
+  deleteEvent(eventToDelete: CalendarEvent): void {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
-  setView(view: CalendarView) {
+  setView(view: CalendarView): void {
     this.view = view;
   }
 
-  closeOpenMonthViewDay() {
+  closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
   }
 }
+

@@ -70,13 +70,13 @@
                   <mat-label>Парола</mat-label>
                   <label>
                     <input #password="ngModel" id="password" name="password" matInput
-                           [type]="hide ? 'password' : 'text'" ngModel required minlength="3">
+                           [type]="hide ? 'password' : 'text'" ngModel required minlength="4">
                   </label>
                   <mat-error *ngIf="password.errors?.required && password.touched">
                     Паролата е задължителна!
                   </mat-error>
                   <mat-error *ngIf="password.errors?.minlength && password.touched">
-                    Паролата трябва да е поне 3 символа!
+                    Паролата трябва да е поне 4 символа!
                   </mat-error>
                   <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
                           [attr.aria-label]="'Hide password'"

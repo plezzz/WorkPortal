@@ -1,2 +1,14 @@
-<p>home works!</p>
 <!--<p>{{(data | async) | json}}</p>-->
+<ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>
+<ng-template #notLogged>
+  <p>guest works!</p>
+  <div>user: {{(user$ | async) | json}}</div>
+  <div>loged: {{(isLogged$ | async) | json}}</div>
+  <div>ready: {{(isReady$ | async) | json}}</div>
+</ng-template>
+<ng-template #logged>
+  <p>home works!</p>
+  <div>user: {{(user$ | async) | json}}</div>
+  <div>loged: {{(isLogged$ | async) | json}}</div>
+  <div>ready: {{(isReady$ | async) | json}}</div>
+</ng-template>

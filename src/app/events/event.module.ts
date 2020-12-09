@@ -20,6 +20,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDividerModule} from '@angular/material/divider';
 
 registerLocaleData(localeBG);
 
@@ -44,7 +45,8 @@ registerLocaleData(localeBG);
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDividerModule
 
   ],
   providers: [

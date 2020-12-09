@@ -69,10 +69,9 @@ body {
 .cal-month-view .cal-day-number {
   opacity: 0.9;
 }
-
+.info-snackbar,
 .error-snackbar {
   background-color: #424242;
-
 }
 
 .error-snackbar span {
@@ -80,10 +79,19 @@ body {
   font-weight: 600;
   text-shadow: 0.05em 0 black, 0 0.05em black, -0.05em 0 black, 0 -0.05em black, -0.05em -0.05em black, -0.05em 0.05em black, 0.05em -0.05em black, 0.05em 0.05em black;
 }
-.error-snackbar button{
+
+.error-snackbar button {
   background-color: #e91e63;
 }
-.error-snackbar .mat-button-wrapper{
+
+.error-snackbar .mat-button-wrapper {
   color: #f5deb3 !important;
 }
 
+.info-snackbar {
+
+}
+
+.mat-select-value {
+  padding-bottom: 3px;
+}

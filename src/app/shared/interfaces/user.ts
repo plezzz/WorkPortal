@@ -13,4 +13,6 @@ export interface IUser extends IBase {
   Role: IRole[];
   jobTitle: string;
   listKnowledge: IKnowledge[];
+  firstName: string;
+  lastName: string;
 }

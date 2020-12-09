@@ -1,6 +1,6 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
 import {AuthService} from '../../auth/auth.service';
 
@@ -11,6 +11,8 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class MainComponent implements OnInit {
   isLogged$ = this.authService.isLogged$;
+  isReady$ = this.authService.isReady$;
+  user$ = this.authService.currentUser$;
   title = 'WorkPortal';
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

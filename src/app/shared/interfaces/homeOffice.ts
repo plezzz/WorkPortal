@@ -1,15 +1,9 @@
 import {IUser} from './user';
 
-export interface IVacation {
+export interface IHomeOffice {
   description: string;
-  approvedByLead: IUser;
-  approvedByAdmin: IUser;
-  replacement: IUser;
   from: Date;
   to: Date;
-  isApproved: boolean;
-  isApprovedByAdmin: boolean;
-  status: string;
   createdAt: Date;
   updatedAt: Date;
   createdBy: IUser;

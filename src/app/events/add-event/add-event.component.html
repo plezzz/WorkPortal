@@ -1,5 +1,5 @@
 <!--
- Common: description, from, to
+Common: description, from, to
 Sick: replacement,
 Vacantion: replacement,
 homeOffice:
@@ -27,14 +27,29 @@ homeOffice:
         <mat-form-field appearance="fill" class="full-width form-group">
           <mat-label>Описание</mat-label>
           <label>
-            <textarea #description="ngModel" id="description" name="description" matInput type="text" ngModel></textarea>
+            <textarea #description="ngModel" id="description" name="description" matInput type="text"
+                      ngModel></textarea>
           </label>
         </mat-form-field>
         <mat-form-field appearance="fill" class="form-group full-width">
           <mat-label>Събитие</mat-label>
-          <mat-select #event="ngModel" id="event" name="event" ngModel required [(ngModel)]="playerName" (closed)="categorySelect(event.value)">
-            <mat-option *ngFor="let category of categorys" [value]="category['value']">
+          <mat-select class="select" #event="ngModel" id="event" name="event" ngModel required
+                      (closed)="categorySelect(event.value)">
+            <mat-option *ngFor="let category of categorys" [value]="category['value']" class="select">
               {{category.text}}
+              <mat-divider></mat-divider>
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="event.invalid && (event.dirty || event.touched)">
+            Типа на събитието е задължително
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-group full-width" *ngIf="hide">
+          <mat-label>Заместник</mat-label>
+          <mat-select class="select" #event="ngModel" id="replacment" name="replacment" ngModel required *ngIf="hide">
+            <mat-option *ngFor="let user of users" [value]="user['_id']" class="select">
+              {{user["firstName"]}} {{user["lastName"]}}
+              <mat-divider></mat-divider>
             </mat-option>
           </mat-select>
           <mat-error *ngIf="event.invalid && (event.dirty || event.touched)">

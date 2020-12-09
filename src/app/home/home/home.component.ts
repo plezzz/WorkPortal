@@ -7,7 +7,10 @@ import {AuthService} from 'src/app/auth/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-data = this.authService.authenticate();
+  isLogged$ = this.authService.isLogged$;
+  user$ = this.authService.currentUser$;
+  isReady$ = this.authService.isReady$;
+
   constructor(private authService: AuthService) {
   }
 
