@@ -1,5 +1,5 @@
 export interface INavNode {
   name: string;
-  url: string;
+  url?: string;
   children?: INavNode[];
 }

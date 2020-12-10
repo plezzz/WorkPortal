@@ -15,4 +15,6 @@ export interface IVacation {
   createdBy: IUser;
   editedBy: IUser;
   _id: string;
+  category: string;
+  days: number;
 }

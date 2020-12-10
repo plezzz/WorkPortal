@@ -9,4 +9,6 @@ export interface ISick {
   updatedAt: Date;
   createdBy: IUser;
   editedBy: IUser;
+  category: string;
+  days: number;
 }

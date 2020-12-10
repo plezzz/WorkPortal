@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
   ) {
   }
 
@@ -31,20 +31,20 @@ export class LoginComponent implements OnInit {
   submitHandler(formData): void {
     this.authService.login(formData).subscribe({
       next: (data) => {
-       // console.log('this is data', data);
+        // console.log('this is data', data);
         const returnUrl = this.route.snapshot.queryParams.return || '/';
-        //console.log(returnUrl);
+        // console.log(returnUrl);
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
-       this.openSnackBar(err.error.join('\n'),'X')
+        this.openSnackBar(err.error.join('\n'), 'X');
         console.log(err);
       }
     });
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
       duration: 9000,
       verticalPosition: 'top',
       horizontalPosition: 'end',

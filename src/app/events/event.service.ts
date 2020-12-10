@@ -32,4 +32,16 @@ export class EventService {
     const vacation = this.http.get<IVacation[]>(`vacation`);
     return forkJoin([sick, homeOffice, vacation]);
   }
+
+  getDetails(id, query): Observable<ISick| IHomeOffice | IVacation> {
+    let urn;
+    if (query === '0') {
+      urn = 'sick';
+    } else if (query === '1') {
+      urn = 'homeOffice';
+    } else {
+      urn = 'vacation';
+    }
+    return this.http.get<ISick | IHomeOffice | IVacation>(`${urn}/${id}`);
+  }
 }

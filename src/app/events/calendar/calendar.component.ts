@@ -128,7 +128,7 @@ export class CalendarComponent implements OnInit {
             start: subDays(startOfDay(new Date(holiday.date)), 0),
             title: holiday.localName,
             color: colors.green,
-            id: 'holiday',
+            id: JSON.stringify({id: 'holiday', category: 3}),
             allDay: true,
           }
         ];
@@ -141,31 +141,32 @@ export class CalendarComponent implements OnInit {
         let counter = 0;
         let colorType;
         let text;
+        let cat;
         allEvents.forEach((events) => {
           if (counter === 0) {
             colorType = colors.red;
             text = `e болничен`;
+            cat = 0;
           } else if (counter === 1) {
             colorType = colors.yellow;
             text = `работи от вкъщи`;
+            cat = 1;
           } else {
             colorType = colors.blue;
             text = `е отпуск`;
+            cat = 2;
           }
           events.forEach((event) => {
             const fromDate: any = new Date(event.from);
             const toDate: any = new Date(event.to);
-            const diffTime = Math.abs(toDate - fromDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            console.log(event.from);
             this.events = [
               ...this.events,
               {
                 start: subDays(startOfDay(fromDate), 0),
-                end: addDays(fromDate, diffDays),
+                end: addDays(fromDate, event.days),
                 title: `${event.createdBy.firstName} ${text} от ${this.normalizeDate(fromDate)} до ${this.normalizeDate(toDate)}`,
                 color: colorType,
-                id: event._id,
+                id: JSON.stringify({id: event._id, category: cat}),
                 allDay: true,
               }];
           });
@@ -175,9 +176,6 @@ export class CalendarComponent implements OnInit {
     );
   }
 
-  normalizeDate(Date: Date): string {
-    return `${Date.getDate()}.${Date.getMonth() + 1}.${Date.getFullYear()}`;
-  }
 
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -202,32 +200,32 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    console.log(event);
-    const url = '/events/' + event.id === 'holiday' ? event.id : '/events/';
-    console.log(url);
-    this.router.navigate([url]);
+    const {id, category} = JSON.parse(event.id as string);
+    const path = category !== 3 ? `${id}?cat=${category}` : '';
+    const url = '/events/' + path;
+    this.router.navigateByUrl(url);
   }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent): void {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
+  // addEvent(): void {
+  //   this.events = [
+  //     ...this.events,
+  //     {
+  //       title: 'New event',
+  //       start: startOfDay(new Date()),
+  //       end: endOfDay(new Date()),
+  //       color: colors.red,
+  //       draggable: true,
+  //       resizable: {
+  //         beforeStart: true,
+  //         afterEnd: true,
+  //       },
+  //     },
+  //   ];
+  // }
+  //
+  // deleteEvent(eventToDelete: CalendarEvent): void {
+  //   this.events = this.events.filter((event) => event !== eventToDelete);
+  // }
 
   setView(view: CalendarView): void {
     this.view = view;
@@ -235,6 +233,10 @@ export class CalendarComponent implements OnInit {
 
   closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
+  }
+
+  normalizeDate(Date: Date): string {
+    return `${Date.getDate()}.${Date.getMonth() + 1}.${Date.getFullYear()}`;
   }
 }
 

@@ -21,11 +21,14 @@ import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
+import { DetailsComponent } from './details/details.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 registerLocaleData(localeBG);
 
 @NgModule({
-  declarations: [CalendarComponent, AddEventComponent],
+  declarations: [CalendarComponent, AddEventComponent, DetailsComponent],
   imports: [
     CommonModule,
     EventRoutingModule,
@@ -46,7 +49,9 @@ registerLocaleData(localeBG);
     MatNativeDateModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    MatIconModule,
 
   ],
   providers: [

@@ -10,11 +10,6 @@ export class AuthService {
   private currentUser: BehaviorSubject<IUser | null | undefined> = new BehaviorSubject(undefined);
   currentUser$ = this.currentUser.asObservable();
   isLogged$ = this.currentUser$.pipe(map(user => {
-    console.log(localStorage.getItem('uulid'));
-    if (!!localStorage.getItem('uulid') && user === undefined) {
-      console.log('heresss');
-      this.authenticate().subscribe(status => {});
-    }
     return !!user;
   }));
   isReady$ = this.currentUser$.pipe(map(user => user !== undefined));
@@ -25,8 +20,6 @@ export class AuthService {
   login(data: any): Observable<any> {
     return this.http.post(`login`, data).pipe(
       tap((user: IUser) => {
-        const newKey = Math.random().toString().replace(/0./, 'ubgt7').concat('mkb6tas');
-        localStorage.setItem('uulid', newKey);
         this.currentUser.next(user);
       })
     );
@@ -41,7 +34,6 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post(`logout`, {}).pipe(
       tap((user: IUser) => {
-        localStorage.removeItem('uulid');
         this.currentUser.next(null);
       })
     );

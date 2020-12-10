@@ -6,35 +6,18 @@ export const TREE_DATA: INavNode[] = [
     url: '/',
   },
   {
-    name: 'Календар',
-    url: '/events',
-    // children: [
-    //   {
-    //     name: 'Добави събиие',
-    //     url: '/events/add-event',
-    //   },
-    // ]
+    name: 'Събития',
+    children: [
+      {
+        name: 'Календар',
+        url: '/events',
+      },
+      {
+        name: 'Добави събиие',
+        url: '/events/add-event',
+      },
+    ]
   },
-  {
-    name: 'Register',
-    url: '/user/register',
-  },
-  {
-    name: 'Добави събитие',
-    url: '/events/add-event',
-  },
-  {
-    name: 'login',
-    url: '/user/login',
-  },
-  // {
-  //   name: 'Exit',
-  //   url: '/user/logout',
-  // },
-  // {
-  //   name: 'Начало',
-  //   url: '/',
-  // },
   // {
   //   name: 'Знание',
   //   url: '/',
@@ -47,24 +30,18 @@ export const TREE_DATA: INavNode[] = [
   //   name: 'Списък принтери',
   //   url: '/',
   // },
-  // {
-  //   name: 'Админ',
-  //   url: '/',
-  //   children: [
-  //     {
-  //       name: 'Потребители',
-  //       url: '/events/add-event',
-  //       children: [
-  //         {
-  //           name: 'Всички',
-  //           url: '/events/add-event',
-  //         },
-  //         {
-  //           name: 'Добави',
-  //           url: '/user/register',
-  //         },
-  //       ]
-  //     },
-  //   ]
-  // },
+  {
+    name: 'Админ',
+    children: [
+      {
+        name: 'Потребители',
+        children: [
+          {
+            name: 'Добави',
+            url: '/user/register',
+          },
+        ]
+      },
+    ]
+  },
 ];

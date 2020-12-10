@@ -1,0 +1,64 @@
+<p>details works!</p>
+{{data | json}}
+<section>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutAlign="center center">
+    <div fxFlex="50" class="form-container">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{data.createdBy.firstName}} {{data.createdBy.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{data.category}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <!--        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+        <mat-card-content>
+          <mat-form-field appearance="fill" class="full-width form-group" fxLayoutAlign="center center">
+            <mat-label fxLayoutAlign="center center">Период</mat-label>
+            <mat-date-range-input [rangePicker]="picker2">
+              <label for="from"></label>
+              <input matStartDate placeholder="Start date" #from="ngModel" id="from"
+                     name="from" ngModel disabled [(ngModel)]="data.from">
+              <label for="to"></label>
+              <input matEndDate placeholder="End date" #to="ngModel" id="to" name="to" ngModel
+                     disabled [(ngModel)]="data.to">
+            </mat-date-range-input>
+            <mat-date-range-picker touchUi #picker2></mat-date-range-picker>
+          </mat-form-field>
+          <p *ngIf="data.category !== 'Болничен'">Статус: {{data.status}}</p>
+          <p *ngIf="data.category === 'Отпуск'">Одобрено от началник:
+            <ng-container *ngTemplateOutlet="data.approvedByLead ? yes : no"></ng-container>
+          </p>
+          <p *ngIf="data.category !== 'Болничен'">
+            Одобрено от шеф:
+            <ng-container *ngTemplateOutlet="data.isApprovedByAdmin ? yes : no"></ng-container>
+          </p>
+          <!--          <p>Статус: {{data.status}}</p>-->
+          <p>
+            {{data.description}}
+          </p>
+          <p class="date-info">
+            Създадено на: {{data.createdAt | date:'dd.MM.YYYY HH:ss'}}
+            <span *ngIf="data.editedBy">Променено на: {{data.updatedAt | date:'dd.MM.YYYY HH:ss'}}
+              от {{data.editedBy.firstName}} {{data.editedBy.lastName}}</span>
+          </p>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+          <button mat-button>Промени</button>
+          <button mat-button>Одобри</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<ng-template #yes>
+  <span class="dot vacantion">
+    <mat-icon>thumb_up_alt</mat-icon>
+  </span>
+</ng-template>
+<ng-template #no>
+
+    <mat-icon class="icon-approve" color="accent">thumb_up_alt</mat-icon>
+
+</ng-template>
