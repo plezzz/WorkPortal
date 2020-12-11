@@ -5,5 +5,5 @@ export interface IRole extends IBase {
   description: string;
   color: string;
   canBeSelected: boolean;
-  completed:boolean
+  completed: boolean;
 }

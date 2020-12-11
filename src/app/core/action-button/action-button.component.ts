@@ -10,15 +10,16 @@ import {AuthService} from '../../auth/auth.service';
 export class ActionButtonComponent implements OnInit {
 
   constructor(private authService: AuthService,
-  private router: Router) {
+              private router: Router) {
   }
 
-  messages = ['MessageOne', 'MessageTwo', 'MessageThree', 'MessageFour', 'MessageFive']
+  messages = ['MessageOne', 'MessageTwo', 'MessageThree', 'MessageFour', 'MessageFive'];
 
   ngOnInit(): void {
   }
-  logout() {
-    this.authService.logout().subscribe(e => console.log)
-    this.router.navigateByUrl('/user/login')
+
+  logout(): void {
+    this.authService.logout().subscribe(e => console.log);
+    this.router.navigateByUrl('/home');
   }
 }

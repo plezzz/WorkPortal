@@ -5,6 +5,6 @@ export interface IKnowledge extends IBase {
   title: string;
   description: string;
   image: string;
-  category: ICategoryKnowledge
+  category: ICategoryKnowledge;
   tags: ITags[];
 }

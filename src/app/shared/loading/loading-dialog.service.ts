@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { MatDialogRef, MatDialog } from "@angular/material/dialog";
-import { LoadingDialogComponent } from "./loading-dialog/loading-dialog.component";
+import { Injectable } from '@angular/core';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 
 @Injectable()
 export class LoadingDialogService {
@@ -14,9 +14,9 @@ export class LoadingDialogService {
       this.opened = true;
       this.dialogRef = this.dialog.open(LoadingDialogComponent, {
         data: undefined,
-        maxHeight: "100%",
-        width: "400px",
-        maxWidth: "100%",
+        maxHeight: '100%',
+        width: '400px',
+        maxWidth: '100%',
         disableClose: false,
         hasBackdrop: false
       });
@@ -28,8 +28,7 @@ export class LoadingDialogService {
   }
 
 
-  hideDialog() {
-
+  hideDialog(): void {
     this.dialogRef.close();
   }
 }

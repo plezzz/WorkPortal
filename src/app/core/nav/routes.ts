@@ -3,10 +3,11 @@ import {INavNode} from '../../shared/interfaces';
 export const TREE_DATA: INavNode[] = [
   {
     name: 'Начало',
-    url: '/',
+    url: '',
   },
   {
     name: 'Събития',
+    url: '/events',
     children: [
       {
         name: 'Календар',
@@ -32,13 +33,15 @@ export const TREE_DATA: INavNode[] = [
   // },
   {
     name: 'Админ',
+    url: '',
     children: [
       {
         name: 'Потребители',
+        url: '/home',
         children: [
           {
             name: 'Добави',
-            url: '/user/register',
+            url: 'auth/register',
           },
         ]
       },

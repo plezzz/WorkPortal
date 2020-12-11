@@ -6,7 +6,7 @@ export interface ICategoryKnowledge extends IBase {
   description: string;
   image: string;
   count: number;
-  listKnowledge: IKnowledge[]
+  listKnowledge: IKnowledge[];
   listTags: ITags[];
 }
 

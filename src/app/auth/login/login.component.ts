@@ -31,9 +31,13 @@ export class LoginComponent implements OnInit {
   submitHandler(formData): void {
     this.authService.login(formData).subscribe({
       next: (data) => {
-        // console.log('this is data', data);
-        const returnUrl = this.route.snapshot.queryParams.return || '/';
-        // console.log(returnUrl);
+         console.log('this is data', data);
+        console.log('check roter', this.route.snapshot)
+        const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+        if (returnUrl === 'logout'){
+          this.router.navigateByUrl('/');
+        }
+         console.log(returnUrl);
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {

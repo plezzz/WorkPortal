@@ -14,6 +14,7 @@ export class AuthGuard implements CanActivateChild {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+
     return this.authService.currentUser$.pipe(
       switchMap(user => user === undefined ? this.authService.authenticate() : [user]),
       map((user) => {
@@ -21,11 +22,16 @@ export class AuthGuard implements CanActivateChild {
         return typeof isLoggedFromData !== 'boolean' || isLoggedFromData === !!user;
       }),
       tap((canContinue) => {
+        const url = this.router.url;
+        console.log('url is', url);
+        console.log('guard', childRoute);
+        console.log('Can continue', canContinue)
         if (canContinue) {
           return;
         }
-        const url = this.router.url;
-        this.router.navigateByUrl(url);
+        this.router.navigate(['auth','login'], { queryParams: { returnUrl: state.url }});
+        // const url = this.router.url;
+        // this.router.navigateByUrl('login');
       }),
       first()
     );

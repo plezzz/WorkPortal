@@ -5,8 +5,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class WrapTextPipe implements PipeTransform {
 
-  transform(string: string, length: number): string {
-    return string;
+  transform(str: string, length: number): string {
+    return str;
     // let words = string.split(' ')
     // return words.reduce(function (acc, cur) {
     //   return acc.length <= length ? acc + ' ' + cur : acc + ' \n ' + cur

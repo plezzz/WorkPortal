@@ -16,7 +16,7 @@
 <!--  </li>-->
 <!--</ul>-->
 
-<ul>
+<ul xmlns="">
   <li>
     <a>
       <i class="material-icons-outlined">message</i>
@@ -30,9 +30,9 @@
       <i class="material-icons-outlined">settings</i>
     </a>
     <ul class="dropdown">
-      <li><a href="#">Профил</a></li>
+      <li><a routerLink="/user/profile">Профил</a></li>
       <li><a href="#">Настройки</a></li>
-      <hr>
+      <mat-divider></mat-divider>
       <li><a (click)="logout()">Изход</a></li>
     </ul>
   </li>

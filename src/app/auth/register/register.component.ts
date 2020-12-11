@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     this.authService.register(formData).subscribe({
       next: (data) => {
         this.openSnackBar(data.message + 'Потребителско име: ' + data.user.username, 'X', ['info-snackbar']);
-        this.router.navigate(['/register']);
+        this.router.navigate(['auth','register']);
       },
       error: (err) => {
         console.log(err);

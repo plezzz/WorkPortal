@@ -18,7 +18,7 @@ export class AddEventComponent implements OnInit {
   hide = false;
   users: IUser[];
   currentUser$;
-  categorys = [
+  categories = [
     {
       value: 'vacation',
       text: 'Отпуск'
@@ -52,7 +52,6 @@ export class AddEventComponent implements OnInit {
       this.currentUser$ = user;
     });
     const query = `jobTitle=${this.currentUser$.jobTitle}`;
-    console.log(query);
     this.userService.getUsersQuery(query).subscribe((users) => {
       this.users = users;
     });
@@ -69,8 +68,6 @@ export class AddEventComponent implements OnInit {
     this.eventService.addEvent(formData.event + '/create', formData).subscribe({
       next: (data) => {
         console.log('this is data', data);
-        const returnUrl = this.route.snapshot.queryParams.return || '/';
-        // console.log(returnUrl);
         this.router.navigateByUrl('/events/add-event');
       },
       error: (err) => {

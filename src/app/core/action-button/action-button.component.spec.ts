@@ -11,7 +11,7 @@ describe('ActionButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule,RouterTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [UserService],
       declarations: [ ActionButtonComponent ]
     })

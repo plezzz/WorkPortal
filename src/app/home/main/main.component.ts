@@ -1,7 +1,8 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
+import {IUser} from 'src/app/shared/interfaces';
 import {AuthService} from '../../auth/auth.service';
 
 @Component({
@@ -12,7 +13,7 @@ import {AuthService} from '../../auth/auth.service';
 export class MainComponent implements OnInit {
   isLogged$ = this.authService.isLogged$;
   isReady$ = this.authService.isReady$;
-  user$ = this.authService.currentUser$;
+  user: IUser;
   title = 'WorkPortal';
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -23,9 +24,14 @@ export class MainComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
               private authService: AuthService
   ) {
+    this.authService.currentUser$.subscribe(user => {
+        this.user = user
+      }
+    )
   }
 
   ngOnInit(): void {
+
   }
 
 }

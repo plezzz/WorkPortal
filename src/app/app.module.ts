@@ -20,27 +20,27 @@ import {HomeModule} from './home/home.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule,
+    HttpClientModule,
+    CoreModule,
+    SharedModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
     LayoutModule,
     DragDropModule,
-    SharedModule,
-    CoreModule,
-    AuthModule,
     HomeModule,
+    AuthModule,
     UserModule,
     EventModule,
-    HttpClientModule,
     FlexLayoutModule,
-
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

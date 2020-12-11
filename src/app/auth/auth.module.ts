@@ -10,12 +10,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
-import { SharedModule } from '../shared/shared.module';
+import {SharedModule} from '../shared/shared.module';
 import {AuthService} from './auth.service';
 import {AuthRoutingModule} from './auth-routing.module';
-import {AuthGuard} from './guards/guards.guard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {AuthGuard} from './guards/auth.guard';
 
 
 @NgModule({

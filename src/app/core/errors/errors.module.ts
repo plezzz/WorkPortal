@@ -1,6 +1,6 @@
-import { NgModule, ErrorHandler } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { GlobalErrorHandler } from "./global-error-handler";
+import { NgModule, ErrorHandler } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GlobalErrorHandler } from './global-error-handler';
 
 @NgModule({
   declarations: [],
