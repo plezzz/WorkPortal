@@ -30,9 +30,13 @@ export class MessagesComponent implements AfterViewInit {
   ) {
     authService.currentUser$.subscribe(user => {
       let messages = [];
-      user.messageReceived.forEach(message => {
-        messages.push(createNewMessage(message))
-      })
+      messageService.getAll(user.messageReceived, false).subscribe(data => {
+          data.forEach(message => {
+            messages.push(createNewMessage(message))
+          })
+        }
+      )
+
       this.dataSource = new MatTableDataSource(messages);
     })
   }
@@ -46,12 +50,14 @@ export class MessagesComponent implements AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, 300)
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -60,7 +66,7 @@ export class MessagesComponent implements AfterViewInit {
     }
   }
 
-  readMessage(data) {
+  readMessage(data): void {
     this.messageService.readMessage(data).subscribe(() => {
       this.router.navigate(['message', 'details', data])
     })

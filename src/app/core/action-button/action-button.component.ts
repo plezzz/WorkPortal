@@ -39,14 +39,16 @@ export class ActionButtonComponent implements AfterViewInit {
   getUnreadMessages(): void {
     this.authService.currentUser$.subscribe(user => {
       if (user !== undefined && user !== null) {
-        let items = user.messageReceived.filter((message: IMessage) => message.isRead === false);
-        this.unreadMessages = items;
-        this.count = items.length
-        if (this.count === 0) {
-          this.hidden = true;
-        }
+        this.messageService.getAll(user.messageReceived, false).subscribe(data => {
+          console.log(data)
+          this.unreadMessages = data;
+          this.count =data.length
+          if (this.count === 0) {
+            this.hidden = true;
+          }
+        })
+
       }
-      this.count = this.unreadMessages.length
     })
   }
 
