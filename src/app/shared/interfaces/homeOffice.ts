@@ -1,16 +1,8 @@
 import {IUser} from './user';
+import {IBaseEvents} from './base-events';
 
-export interface IHomeOffice {
-  description: string;
-  from: Date;
-  to: Date;
+export interface IHomeOffice extends IBaseEvents {
   status: string;
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: IUser;
-  editedBy: IUser;
-  _id: string;
-  category: string;
   isApprovedByAdmin: boolean;
-  days: number;
+
 }

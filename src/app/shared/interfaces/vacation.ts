@@ -1,20 +1,12 @@
 import {IUser} from './user';
+import {IBaseEvents} from './base-events';
 
-export interface IVacation {
-  description: string;
+export interface IVacation extends IBaseEvents{
   approvedByLead: IUser;
   approvedByAdmin: IUser;
   replacement: IUser;
-  from: Date;
-  to: Date;
   isApproved: boolean;
   isApprovedByAdmin: boolean;
   status: string;
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: IUser;
-  editedBy: IUser;
-  _id: string;
-  category: string;
-  days: number;
+  workDays: number;
 }

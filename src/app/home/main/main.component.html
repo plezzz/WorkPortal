@@ -17,19 +17,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <a routerLink="/home"><img src="assets/images/logo-white-wheat.webp" alt="" class="logo"></a>
-      <p>User is logged: {{(isLogged$ | async)}}  </p>
-<!--      <p>&#45;&#45;Hello: {{user.firstName}}</p>-->
       <app-action-button></app-action-button>
     </mat-toolbar>
-<!--    <ng-template #content>-->
-      <router-outlet></router-outlet>
-<!--    </ng-template>-->
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-<!--<ng-template #loading>-->
-<!--  <div>LOADING...</div>-->
-<!--</ng-template>-->
-
-<!--<ng-container *ngTemplateOutlet="(isReady$ | async) ? content : loading"></ng-container>-->

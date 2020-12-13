@@ -30,7 +30,6 @@ export class AppInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.loadingDialogService.openDialog();
-    console.warn('request URL is: ', req.url);
     if (!req.url.includes('http')) {
       req = req.clone({
         withCredentials: true,

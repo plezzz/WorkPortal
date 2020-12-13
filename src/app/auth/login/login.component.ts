@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../auth.service';
@@ -10,7 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css', '../../shared/css/form.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   // ng
   hide = true;
   isLogged$ = this.authService.isLogged$;
@@ -24,25 +24,17 @@ export class LoginComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-
-  }
-
   submitHandler(formData): void {
     this.authService.login(formData).subscribe({
-      next: (data) => {
-         console.log('this is data', data);
-        console.log('check roter', this.route.snapshot)
+      next: () => {
         const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-        if (returnUrl === 'logout'){
+        if (returnUrl === 'logout') {
           this.router.navigateByUrl('/');
         }
-         console.log(returnUrl);
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
         this.openSnackBar(err.error.join('\n'), 'X');
-        console.log(err);
       }
     });
   }

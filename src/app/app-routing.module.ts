@@ -28,6 +28,12 @@ const routes: Routes = [
     loadChildren: () => import('./events/event.module').then(m => m.EventModule)
   },
   {
+    path: 'message',
+    canActivateChild: [AuthGuard],
+    loadChildren: () => import('./message/message.module').then(m => m.MessageModule)
+  },
+
+  {
     path: '**',
     component: NotFoundComponent,
     data: {

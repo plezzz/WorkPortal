@@ -1,5 +1,5 @@
-<p>details works!</p>
-{{data | json}}
+<ng-container *ngTemplateOutlet="data ? eventExisting : eventNotExisting "></ng-container>
+<ng-template #eventExisting>
 <section>
   <div class="container" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutAlign="center center">
     <div fxFlex="50" class="form-container">
@@ -12,9 +12,9 @@
         <mat-divider></mat-divider>
         <!--        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
         <mat-card-content>
-          <mat-form-field appearance="fill" class="full-width form-group" fxLayoutAlign="center center">
+          <mat-form-field appearance="fill" class="full-width form-group" fxFlexFill>
             <mat-label fxLayoutAlign="center center">Период</mat-label>
-            <mat-date-range-input [rangePicker]="picker2">
+            <mat-date-range-input [rangePicker]="picker2" fxLayoutAlign="center center">
               <label for="from"></label>
               <input matStartDate placeholder="Start date" #from="ngModel" id="from"
                      name="from" ngModel disabled [(ngModel)]="data.from">
@@ -25,16 +25,16 @@
             <mat-date-range-picker touchUi #picker2></mat-date-range-picker>
           </mat-form-field>
           <p *ngIf="data.category !== 'Болничен'">Статус: {{data.status}}</p>
-          <p *ngIf="data.category === 'Отпуск'">Одобрено от началник:
+          <p *ngIf="data.category === 'Отпуск' && data.status !== 'изчакване'">Одобрено от началник:
             <ng-container *ngTemplateOutlet="data.approvedByLead ? yes : no"></ng-container>
           </p>
-          <p *ngIf="data.category !== 'Болничен'">
+          <p *ngIf="data.category !== 'Болничен' && data.status !== 'изчакване'">
             Одобрено от шеф:
             <ng-container *ngTemplateOutlet="data.isApprovedByAdmin ? yes : no"></ng-container>
           </p>
           <!--          <p>Статус: {{data.status}}</p>-->
           <p>
-            {{data.description}}
+           Описание: {{data.description}}
           </p>
           <p class="date-info">
             Създадено на: {{data.createdAt | date:'dd.MM.YYYY HH:ss'}}
@@ -43,10 +43,21 @@
           </p>
         </mat-card-content>
         <mat-divider></mat-divider>
-        <mat-card-actions>
-          <button mat-button>Промени</button>
-          <button mat-button>Одобри</button>
-        </mat-card-actions>
+<!--        <mat-card-actions fxLayoutAlign="center center">-->
+<!--          <button mat-button class="button" *ngIf="data.createdBy._id === currentUser$._id">Промени</button>-->
+<!--          <button mat-button class="button"-->
+<!--                  *ngIf="currentUser$.isAdmin ||-->
+<!--                   (currentUser$.isLead &&-->
+<!--                    currentUser$.jobTitle===data.createdBy.jobTitle)">-->
+<!--            Одобри-->
+<!--          </button>-->
+<!--          <button mat-button class="button"-->
+<!--                  *ngIf="currentUser$.isAdmin ||-->
+<!--                  (currentUser$.isLead &&-->
+<!--                   currentUser$.jobTitle===data.createdBy.jobTitle)">-->
+<!--            Откажи-->
+<!--          </button>-->
+<!--        </mat-card-actions>-->
       </mat-card>
     </div>
   </div>
@@ -59,6 +70,10 @@
 </ng-template>
 <ng-template #no>
 
-    <mat-icon class="icon-approve" color="accent">thumb_down_alt</mat-icon>
+  <mat-icon class="icon-approve" color="accent">thumb_down_alt</mat-icon>
 
+</ng-template>
+</ng-template>
+<ng-template #eventNotExisting>
+  <p>Не е открито такова събитие</p>
 </ng-template>

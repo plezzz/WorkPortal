@@ -37,14 +37,15 @@ export class AddEventComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    // tslint:disable-next-line:variable-name
-    private _snackBar: MatSnackBar,
-    // tslint:disable-next-line:variable-name
-    private _adapter: DateAdapter<any>,
+    private snackBar: MatSnackBar,
+    private adapter: DateAdapter<any>,
     private userService: UserService,
     private authService: AuthService,
     private eventService: EventService,
   ) {
+    this.adapter.getFirstDayOfWeek = () => {
+      return 1;
+    }
   }
 
   ngOnInit(): void {
@@ -64,22 +65,18 @@ export class AddEventComponent implements OnInit {
 
 
   submitHandler(formData): void {
-    console.log('formData:', formData);
     this.eventService.addEvent(formData.event + '/create', formData).subscribe({
       next: (data) => {
-        console.log('this is data', data);
-        this.router.navigateByUrl('/events/add-event');
+        this.router.navigateByUrl('/events');
       },
       error: (err) => {
         this.openSnackBar(err.error.join('\n'), 'X');
-        // console.log('in login component err')
-        console.log(err);
       }
     });
   }
 
   openSnackBar(message: string, action: string): void {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 9000,
       verticalPosition: 'top',
       horizontalPosition: 'end',

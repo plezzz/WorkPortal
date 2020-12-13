@@ -1,14 +1,6 @@
 import {IUser} from './user';
+import {IBaseEvents} from './base-events';
 
-export interface ISick {
-  _id: string;
-  description: string;
-  from: Date;
-  to: Date;
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: IUser;
-  editedBy: IUser;
-  category: string;
-  days: number;
+export interface ISick extends IBaseEvents {
+  workDays: number;
 }

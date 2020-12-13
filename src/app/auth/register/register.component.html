@@ -4,7 +4,6 @@
       <div *ngIf="!isLoading">
         <form class="form" #f="ngForm" (ngSubmit)="submitHandler(f.value)">
           <span class="title">Регистрация</span>
-          <!--          <mat-icon matPrefix>sentiment_very_satisfied</mat-icon>-->
           <span *ngIf="usernameHelp"><span class="important">Потребителското име</span> трябва да е минимум <span
             class="important">3 латинки знака</span> и е <span class="important">задължително</span></span>
           <hr>
@@ -157,24 +156,11 @@
           </table>
           <hr>
           <div class="button-container">
-            <button mat-raised-button color="primary" class="button" [disabled]="f.invalid">Регистрация</button>
+            <button mat-raised-button color="primary" class="button" [class.disabled]="f.invalid"
+                    [disabled]="f.invalid">Регистрация
+            </button>
           </div>
-
-          <!--        <p *ngIf="username.touched && username.errors?.required" class="error">-->
-          <!--          Потребителското име е задължително!-->
-          <!--        </p>-->
-          <!--        {{username.errors}}-->
-          <!--        <p *ngIf="username.touched && username.errors?.emailValidator" class="error">-->
-          <!--          Потребителското име не е валидно! Минимум 3 латински букви.-->
-          <!--        </p>-->
-          <!--        <p *ngIf="email.touched && email.errors?.required" class="error">-->
-          <!--          Имейлът е задължително!-->
-          <!--        </p>-->
-          <!--        <p *ngIf="email.touched && email.errors?.emailValidator" class="error">-->
-          <!--          Имейлът не е валиден!-->
-          <!--        </p>-->
         </form>
-        <!--      -->
       </div>
     </div>
   </div>

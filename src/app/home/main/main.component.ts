@@ -1,5 +1,6 @@
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Component, OnInit} from '@angular/core';
+import {NavigationEnd, Router } from '@angular/router';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {IUser} from 'src/app/shared/interfaces';
@@ -22,12 +23,14 @@ export class MainComponent implements OnInit {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private authService: AuthService
+              private authService: AuthService,
+              private router: Router
   ) {
     this.authService.currentUser$.subscribe(user => {
         this.user = user
       }
     )
+
   }
 
   ngOnInit(): void {

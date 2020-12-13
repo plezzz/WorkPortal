@@ -13,3 +13,4 @@ export * from './categoryRole';
 export * from './holiday';
 export * from './sick';
 export * from './homeOffice';
+export * from './message';

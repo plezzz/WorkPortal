@@ -10,6 +10,8 @@ import { MainComponent } from './main/main.component';
 import {AuthModule} from '../auth/auth.module';
 import {HomeRoutingModule} from './home-routing.module';
 import {RouterModule} from '@angular/router';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -18,16 +20,18 @@ import {RouterModule} from '@angular/router';
     HomeComponent,
     MainComponent,
   ],
-  imports: [
-    CommonModule,
-    CoreModule,
-    AuthModule,
-    RouterModule,
-    HomeRoutingModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule
-  ]
+    imports: [
+        CommonModule,
+        CoreModule,
+        AuthModule,
+        RouterModule,
+        HomeRoutingModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        FlexLayoutModule,
+      MatCardModule
+    ]
 })
 export class HomeModule { }

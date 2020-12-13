@@ -1,14 +1,17 @@
-<!--<p>{{(data | async) | json}}</p>-->
-<ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>
+<section>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutAlign="center center">
+    <mat-card class="example-card">
+      <mat-card-content>
+        <ng-container *ngTemplateOutlet="(isLogged$ | async) ? logged : notLogged">Loading...</ng-container>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
 <ng-template #notLogged>
-  <p>guest works!</p>
-  <div>user: {{(user$ | async) | json}}</div>
-  <div>logged: {{(isLogged$ | async) | json}}</div>
-  <div>ready: {{(isReady$ | async) | json}}</div>
+  <p>Добре дошли в WorkPortal, моля влезте с вашия профил за да продължите.</p>
+  <p>Може да влзенете от <a routerLink="/auth/login">тук</a>.</p>
 </ng-template>
 <ng-template #logged>
-  <p>home works!</p>
-  <div>user: {{(user$ | async) | json}}</div>
-  <div>logged: {{(isLogged$ | async) | json}}</div>
-  <div>ready: {{(isReady$ | async) | json}}</div>
+  <p>Здравейте, {{(user$|async).firstName}}</p>
+  <p>Може да проветите за нови събития от календара <a routerLink="/events">тук</a></p>
 </ng-template>

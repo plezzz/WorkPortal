@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {MessageService} from 'src/app/message/message.service';
+import {IMessage} from 'src/app/shared/interfaces';
 import {AuthService} from '../../auth/auth.service';
 
 @Component({
@@ -7,19 +9,50 @@ import {AuthService} from '../../auth/auth.service';
   templateUrl: './action-button.component.html',
   styleUrls: ['./action-button.component.css']
 })
-export class ActionButtonComponent implements OnInit {
+export class ActionButtonComponent implements AfterViewInit {
+  count = 0;
+  unreadMessages = [];
+  hidden = false;
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              public router: Router,
+              private messageService: MessageService) {
+
+
   }
 
-  messages = ['MessageOne', 'MessageTwo', 'MessageThree', 'MessageFour', 'MessageFive'];
-
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.getUnreadMessages()
+      }
+    });
   }
 
   logout(): void {
-    this.authService.logout().subscribe(e => console.log);
-    this.router.navigateByUrl('/home');
+    this.unreadMessages = []
+    this.authService.logout().subscribe(() => {
+      this.router.navigateByUrl('/home');
+    });
+  }
+
+  getUnreadMessages(): void {
+    this.authService.currentUser$.subscribe(user => {
+      if (user !== undefined && user !== null) {
+        let items = user.messageReceived.filter((message: IMessage) => message.isRead === false);
+        this.unreadMessages = items;
+        this.count = items.length
+        if (this.count === 0) {
+          this.hidden = true;
+        }
+      }
+      this.count = this.unreadMessages.length
+    })
+  }
+
+  readMessage(data) {
+    this.messageService.readMessage(data._id).subscribe(() => {
+      this.router.navigate(['message', 'details', data._id])
+    })
   }
 }

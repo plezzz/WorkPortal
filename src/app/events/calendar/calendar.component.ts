@@ -57,55 +57,7 @@ export class CalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    // {
-    //   start: subDays(startOfDay(new Date()), 1),
-    //   end: addDays(new Date(), 1),
-    //   title: 'A 3 day event',
-    //   id: 'holiday',
-    //   color: colors.red,
-    //   allDay: true,
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true,
-    //   },
-    //   draggable: true,
-    // },
-    // {
-    //   start: startOfDay(new Date()),
-    //   title: `An event with no end date${new Date('Fri Dec 04 2021 12:05:37 GMT+0200 (Eastern European Standard Time)')}`,
-    //   color: colors.yellow,
-    //   id: 'holiday',
-    // },
-    // {
-    //   start: subDays(endOfMonth(new Date()), 3),
-    //   end: addDays(endOfMonth(new Date()), 3),
-    //   title: 'A long event that spans 2 months',
-    //   color: colors.blue,
-    //   id: 'holiday',
-    //   allDay: true,
-    // },
-    // {
-    //   start: addHours(startOfDay(new Date()), 2),
-    //   end: addHours(new Date(), 2),
-    //   title: 'A draggable and resizable event',
-    //   color: colors.yellow,
-    //   id: 'holiday',
-    //   resizable: {
-    //     beforeStart: true,
-    //     afterEnd: true,
-    //   },
-    //   draggable: true,
-    // },
-    // {
-    //   start: startOfDay(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)')),
-    //   end: addDays(new Date('Fri Dec 04 2020 12:05:37 GMT+0200 (Eastern European Standard Time)'), 2),
-    //   title: 'Киро е отпук от 04 до 08.12.2020',
-    //   color: colors.blue,
-    //   allDay: true,
-    //   id: 'holiday',
-    // },
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen = true;
 
@@ -146,15 +98,15 @@ export class CalendarComponent implements OnInit {
           if (counter === 0) {
             colorType = colors.red;
             text = `e болничен`;
-            cat = 0;
+            cat = 'sick';
           } else if (counter === 1) {
             colorType = colors.yellow;
             text = `работи от вкъщи`;
-            cat = 1;
+            cat = 'homeOffice';
           } else {
             colorType = colors.blue;
             text = `е отпуск`;
-            cat = 2;
+            cat = 'vacation';
           }
           events.forEach((event) => {
             const fromDate: any = new Date(event.from);
@@ -205,27 +157,6 @@ export class CalendarComponent implements OnInit {
     const url = '/events/' + path;
     this.router.navigateByUrl(url);
   }
-
-  // addEvent(): void {
-  //   this.events = [
-  //     ...this.events,
-  //     {
-  //       title: 'New event',
-  //       start: startOfDay(new Date()),
-  //       end: endOfDay(new Date()),
-  //       color: colors.red,
-  //       draggable: true,
-  //       resizable: {
-  //         beforeStart: true,
-  //         afterEnd: true,
-  //       },
-  //     },
-  //   ];
-  // }
-  //
-  // deleteEvent(eventToDelete: CalendarEvent): void {
-  //   this.events = this.events.filter((event) => event !== eventToDelete);
-  // }
 
   setView(view: CalendarView): void {
     this.view = view;

@@ -16,6 +16,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {CommonModule} from '@angular/common';
 import {AuthModule} from './auth/auth.module';
 import {HomeModule} from './home/home.module';
+import {MessageModule} from './message/message.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {HomeModule} from './home/home.module';
     AuthModule,
     UserModule,
     EventModule,
+    MessageModule,
     FlexLayoutModule,
   ],
   providers: [

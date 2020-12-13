@@ -10,17 +10,23 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {LoadingDialogService} from './loading/loading-dialog.service';
 import {MatDialogModule, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {WrapTextPipe} from './pipes/wrap-text.pipe';
+import { PrettyPrintPipe } from './pipes/pretty-print.pipe';
+import { YesNoPipe } from './pipes/yes-no.pipe';
 
 @NgModule({
   declarations: [
     ErrorComponent,
     LoadingDialogComponent,
-    WrapTextPipe],
-  exports: [
-    ErrorComponent,
-    MatSnackBarModule,
-    LoadingDialogComponent
-  ],
+    WrapTextPipe,
+    PrettyPrintPipe,
+    YesNoPipe],
+    exports: [
+        ErrorComponent,
+        MatSnackBarModule,
+        LoadingDialogComponent,
+        PrettyPrintPipe,
+        YesNoPipe
+    ],
   imports: [
     CommonModule,
       MatDialogModule,

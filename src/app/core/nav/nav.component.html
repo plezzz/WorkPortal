@@ -1,19 +1,7 @@
-<!--<mat-nav-list>-->
-<!--  <a mat-list-item routerLink="/">Начало</a>-->
-<!--  <a mat-list-item routerLink="/events">Отпуск</a>-->
-<!--  <a mat-list-item routerLink="/ddd">Знание</a>-->
-<!--  <a mat-list-item routerLink="/">Указания и Правила</a>-->
-<!--  <a mat-list-item routerLink="/">Списък принтери</a>-->
-<!--  <a mat-list-item routerLink="/">Админ</a>-->
-<!--</mat-nav-list>-->
-
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-    <!-- use a disabled button to provide padding for tree leaf -->
     <a [routerLink]="[node.url]">{{node.name}}</a>
   </mat-tree-node>
-  <!-- This is the tree node template for expandable nodes -->
   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
     <a mat-icon-button matTreeNodeToggle
        [attr.aria-label]="'Toggle ' + node.name">

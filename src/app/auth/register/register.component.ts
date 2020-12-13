@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../user/user.service';
@@ -11,7 +11,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css', '../../shared/css/form.css']
 })
-export class RegisterComponent implements OnInit, AfterViewInit {
+export class RegisterComponent implements OnInit {
   isLoading = true;
   user = this.authService.currentUser$;
   hide = true;
@@ -22,10 +22,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   constructor(private userService: UserService,
               private authService: AuthService,
               private router: Router,
-              // tslint:disable-next-line:variable-name
               private _snackBar: MatSnackBar
   ) {
     this.usernameHelp = false;
+    this.isLoading = true;
   }
 
   ngOnInit(): void {
@@ -33,13 +33,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       this.jobs = jobs;
       this.isLoading = false;
     });
-  }
-
-  ngAfterViewInit(): void {
-    // this.from.valueChanges.subscribe()
-    // this.from.form.valueChanges.subscribe(console.log)
-    // console.log(this.from.status);
-    // this.from.valueChanges.subscribe(console.log);
   }
 
   submitHandler(formData): void {
@@ -52,19 +45,15 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     if (formData.isAdmin === '') {
       formData.isAdmin = false;
     }
-    console.log(formData);
     this.authService.register(formData).subscribe({
       next: (data) => {
         this.openSnackBar(data.message + 'Потребителско име: ' + data.user.username, 'X', ['info-snackbar']);
-        this.router.navigate(['auth','register']);
+        this.router.navigate(['auth', 'register']);
       },
       error: (err) => {
-        console.log(err);
         this.openSnackBar(typeof err.error === 'string' ? err.error : err.error.join('\n'), 'X', ['error-snackbar']);
-        console.log(typeof err.error);
       }
     });
-
   }
 
   openSnackBar(message: string, action: string, classes: string[]): void {

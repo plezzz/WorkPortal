@@ -7,6 +7,7 @@ export interface IUser extends IBase {
   password: string;
   username: string;
   isLead: boolean;
+  isAdmin: boolean;
   vacationDays: number;
   VacationDetails: IVacation[];
   message: [];
@@ -15,4 +16,6 @@ export interface IUser extends IBase {
   listKnowledge: IKnowledge[];
   firstName: string;
   lastName: string;
+  messageReceived:[],
+  messageSend:[],
 }

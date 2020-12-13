@@ -9,7 +9,6 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
 import {SharedModule} from '../shared/shared.module';
 import {AuthService} from './auth.service';
 import {AuthRoutingModule} from './auth-routing.module';

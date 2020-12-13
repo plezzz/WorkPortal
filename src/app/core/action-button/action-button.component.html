@@ -1,40 +1,43 @@
-<!--<ul class="navbar-nav mr-auto">-->
-<!--  <li class="nav-item">-->
-<!--    <a class="nav-link" href="./"></a>-->
-<!--  </li>-->
-<!--  <li class="nav-item dropdown">-->
-<!--    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"-->
-<!--       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--      Име-->
-<!--    </a>-->
-<!--    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--      <a class="dropdown-item" href="#">Профил</a>-->
-<!--      <a class="dropdown-item" href="#">Настройки</a>-->
-<!--      <div class="dropdown-divider"></div>-->
-<!--      <a class="dropdown-item" href="#">Изход</a>-->
-<!--    </div>-->
-<!--  </li>-->
-<!--</ul>-->
+<button mat-icon-button [matBadge]="count" matBadgeColor="accent" [matBadgeHidden]="hidden"
+        [matMenuTriggerFor]="messages" aria-label="Example icon-button with a menu">
+  <i class="material-icons-outlined">email</i>
+</button>
+<button mat-icon-button [matMenuTriggerFor]="settings" aria-label="Example icon-button with a menu">
+  <i class="material-icons-outlined">settings</i>
+</button>
+<mat-menu #messages="matMenu">
+  <ng-container *ngTemplateOutlet="unreadMessages.length >0 ? unread : noNew "></ng-container>
+  <ng-template #unread>
+    <button mat-menu-item *ngFor="let unreadMessage of unreadMessages" (click)="readMessage(unreadMessage)">
+      <mat-icon>mark_email_unread</mat-icon>
+      <span>{{unreadMessage.title}}</span>
+    </button>
+  </ng-template>
+  <ng-template #noNew>
+    <button mat-menu-item>
+      <mat-icon>email</mat-icon>
+      <span>Няма нови съобщения</span>
+    </button>
+  </ng-template>
+  <mat-divider></mat-divider>
+  <button mat-menu-item routerLink="/message/all">
+    <mat-icon>list_alt</mat-icon>
+    <span>Всички Съобщения</span>
+  </button>
+</mat-menu>
 
-<ul xmlns="">
-  <li>
-    <a>
-      <i class="material-icons-outlined">message</i>
-    </a>
-    <ul class="dropdown">
-      <li *ngFor="let message of messages">{{message}}</li>
-    </ul>
-  </li>
-  <li>
-    <a>
-      <i class="material-icons-outlined">settings</i>
-    </a>
-    <ul class="dropdown">
-      <li><a routerLink="/user/profile">Профил</a></li>
-      <li><a href="#">Настройки</a></li>
-      <mat-divider></mat-divider>
-      <li><a (click)="logout()">Изход</a></li>
-    </ul>
-  </li>
-</ul>
-
+<mat-menu #settings="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item (click)="router.navigate(['user/profile']);">
+    <mat-icon>account_box</mat-icon>
+    <span>Profile</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button type="button" mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Изход</span>
+  </button>
+</mat-menu>

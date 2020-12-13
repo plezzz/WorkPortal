@@ -19,31 +19,13 @@ export const TREE_DATA: INavNode[] = [
       },
     ]
   },
-  // {
-  //   name: 'Знание',
-  //   url: '/',
-  // },
-  // {
-  //   name: 'Указания и Правила',
-  //   url: '/',
-  // },
-  // {
-  //   name: 'Списък принтери',
-  //   url: '/',
-  // },
   {
-    name: 'Админ',
-    url: '',
+    name: 'Потребители',
+    url: 'user/all',
     children: [
       {
-        name: 'Потребители',
-        url: '/home',
-        children: [
-          {
-            name: 'Добави',
-            url: 'auth/register',
-          },
-        ]
+        name: 'Добави',
+        url: 'auth/register',
       },
     ]
   },

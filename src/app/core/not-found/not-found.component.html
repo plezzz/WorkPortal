@@ -1,1 +1,21 @@
-<p>not-found works!</p>
+<section>
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxFlexFill fxLayoutAlign="center center">
+    <div fxFlex="50" class="form-container">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>Страницата която търсите не е открита</mat-card-title>
+          <mat-card-subtitle>грешка 404</mat-card-subtitle>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <p class="description">Страницата {{path}} не е намерена</p>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions fxLayoutAlign="center center">
+          <button mat-button class="button" routerLink="/">Начало</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
